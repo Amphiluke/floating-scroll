@@ -1,0 +1,19 @@
+.fl-scrolls, .fl-scrolls div {
+    font-size:0;
+    line-height:0;
+    margin:0;
+    padding:0;
+}
+.fl-scrolls {
+    bottom:0;
+    height:35px;
+    overflow:auto;
+    position:fixed;
+}
+.fl-scrolls div {
+    height:1px;
+    overflow:hidden;
+}
+.fl-scrolls-hidden {
+    bottom:9999px;
+}
