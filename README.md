@@ -45,3 +45,7 @@ $(".spacious-container").floatingScroll("destroy");
 ### Live demos
 
 You may find some demos of use the floatingScroll plugin [here](http://amphiluke.github.io/jquery-plugins/floatingscroll/).
+
+### Previous versions
+
+Prior to v2.2.0, the plugin was the part of the [jquery-plugins](https://github.com/Amphiluke/jquery-plugins) repo. If for some purpose you want to get commit history for older plugin versions, you can [extract](https://github.com/Amphiluke/jquery-plugins/commits/master?path=src/floatingscroll/jquery.floatingscroll.js) it from that “old” repo.
