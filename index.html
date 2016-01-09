@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>floatingScroll</title>
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css"/>
+</head>
+<body>
+    <header>
+        <h1>floatingScroll</h1>
+        <p>A lightweight jQuery plugin providing floating scrollbar functionality</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introductory remarks</h2>
+            <p>Below, you will find some demos using <code>floatingScroll</code>, a jQuery plugin providing any lengthy containers on the page with a separate horizontal scroll bar, which does not get out of sight when the entire page is scrolled.</p>
+            <p>If you are looking for a guide on plugin usage and API please check out this <a href="https://github.com/Amphiluke/floating-scroll#floating-scroll">README</a> on GitHub.</p>
+        </section>
+
+        <section id="demo-table">
+            <h2>#1: Table with collapsible columns</h2>
+
+            <h3>Description</h3>
+            <p>Among other things this example demonstrates one of the use cases for the <code>update</code> method. Control column visibility by switching the states on corresponding checkboxes.</p>
+            <p><small>The table below was copied from <a href="http://www.whatwg.org/specs/web-apps/current-work/#input-type-attr-summary" target="_blank" rel="nofollow">whatwg.org</a> <em>for demonstration purposes only</em>, the data presented here can be out of date.</small></p>
+
+            <h3>Live demo</h3>
+            <form action="#" class="fs-whatwg-cols" autocomplete="off">
+                <fieldset>
+                    <label><input type="checkbox" checked/> Hidden</label>
+                    <label><input type="checkbox" checked/> Text, Search</label>
+                    <label><input type="checkbox" checked/> URL, Telephone</label>
+                    <label><input type="checkbox" checked/> E-mail</label>
+                    <label><input type="checkbox" checked/> Password</label>
+                    <label><input type="checkbox" checked/> Date and Time, Date, Month, Week, Time</label>
+                    <label><input type="checkbox" checked/> Local Date and Time</label>
+                </fieldset>
+                <fieldset>
+                    <label><input type="checkbox" checked/> Number</label>
+                    <label><input type="checkbox" checked/> Range</label>
+                    <label><input type="checkbox" checked/> Color</label>
+                    <label><input type="checkbox" checked/> Checkbox, Radio Button</label>
+                    <label><input type="checkbox" checked/> File Upload</label>
+                    <label><input type="checkbox" checked/> Submit Button</label>
+                    <label><input type="checkbox" checked/> Image Button</label>
+                    <label><input type="checkbox" checked/> Reset Button, Button</label>
+                </fieldset>
+            </form>
+            <div id="fs-whatwg" class="fs-demo fs-whatwg">
+                <table>
+                <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Hidden</th>
+                    <th>Text, Search</th>
+                    <th>URL, Telephone</th>
+                    <th>E-mail</th>
+                    <th>Password</th>
+                    <th>Date and Time, Date, Month, Week, Time</th>
+                    <th>Local Date and Time</th>
+                    <th>Number</th>
+                    <th>Range</th>
+                    <th>Color</th>
+                    <th>Checkbox, Radio Button</th>
+                    <th>File Upload</th>
+                    <th>Submit Button</th>
+                    <th>Image Button</th>
+                    <th>Reset Button, Button</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th colspan="16">Content attributes</th>
+                </tr>
+                <tr>
+                    <th>accept</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>alt</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>autocomplete</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>checked</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>dirname</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>formaction</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>formenctype</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>formmethod</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>formnovalidate</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>formtarget</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>height</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>list</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>max</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>maxlength</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>min</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>multiple</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>pattern</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>placeholder</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>readonly</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>required</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>size</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>src</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>step</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>width</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <th scope="rowgroup" colspan="16">IDL attributes and methods</th>
+                </tr>
+                <tr>
+                    <th>checked</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>files</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr class="impl">
+                    <th>value</th>
+                    <td>default</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>value</td>
+                    <td>default/on</td>
+                    <td>filename</td>
+                    <td>default</td>
+                    <td>default</td>
+                    <td>default</td>
+                </tr>
+                <tr>
+                    <th>valueAsDate</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>valueAsNumber</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>list</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>selectedOption</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td> Yes†</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>select()</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>selectionStart</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>selectionEnd</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>selectionDirection</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>setSelectionRange()</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>stepDown()</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>stepUp()</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <th scope="rowgroup" colspan="16">Events</th>
+                </tr>
+                <tr>
+                    <th>input event</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                <tr>
+                    <th>change event</th>
+                    <td>–</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td>–</td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+
+            <h3>Demo code</h3>
+            <pre class="fs-code"><code class="javascript">
+    // Plugin initialization
+    $(".fs-whatwg").floatingScroll();
+
+    // Handle checkbox state changes and update floating scrollbar
+    $(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
+        var $checkboxes = $(e.delegateTarget).find("input[type='checkbox']"),
+            index;
+        if ($checkboxes.filter(":checked").length) {
+            index = $checkboxes.index(e.target);
+            if (index > -1) {
+                $("#fs-whatwg").find("th, td")
+                    .filter(":nth-child(" + (index + 2) + ")")
+                    .toggleClass("hidden");
+            }
+        } else {
+            $checkboxes.prop("checked", true);
+            $("#fs-whatwg").find("th.hidden, td.hidden").removeClass("hidden");
+        }
+        // Force scrollbar update programmatically
+        $(".fs-whatwg").floatingScroll("update");
+    });
+            </code></pre>
+        </section>
+
+        <section id="demo-listing">
+            <h2>#2: Code listing</h2>
+
+            <h3>Description</h3>
+            <p>The listing below has long lines of code making horizontal scrolling necessary. This example also demonstrates one of the use cases for the <code>destroy</code> method.</p>
+
+            <h3>Live demo</h3>
+            <p><button id="fs-listing-toggle">Expand/Collapse the listing</button> <small>and turn on/off floating scrollbar</small></p>
+            <pre id="fs-listing" class="fs-demo fs-code fs-listing"><code class="javascript">
+(function (global, factory) {
+	"use strict";
+	if (typeof global.define === "function" &amp;&amp; global.define.amd) {
+		global.define(["jquery"], factory);
+	} else if (typeof module === "object" &amp;&amp; module.exports) {
+		factory(require("jquery"));
+	} else {
+		factory(global.jQuery);
+	}
+}(this, function ($) {
+
+"use strict";
+
+var se = window,
+	getMaxVisibleY = function () {return se.pageYOffset + se.innerHeight;};
+
+/*@cc_on
+@if (@_jscript_version &lt; 9)
+se = document.documentElement;
+getMaxVisibleY = function () {return se.scrollTop + se.clientHeight;};
+@end @*/
+
+function FScroll(cont) {
+	var inst = this;
+	inst.cont = {block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0};
+	inst.sbar = inst.initScroll();
+	inst.visible = true;
+	inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
+	inst.syncSbar(cont[0]);
+	inst.addEventHandlers();
+}
+
+$.extend(FScroll.prototype, {
+
+	initScroll: function () {
+		var flscroll = $("&lt;div class='fl-scrolls'&gt;&lt;/div&gt;");
+		$("&lt;div&gt;&lt;/div&gt;").appendTo(flscroll).css({width: this.cont.block.scrollWidth + "px"});
+		return flscroll.appendTo("body");
+	},
+
+	addEventHandlers: function () {
+		var inst = this,
+			handlers,
+			i, len;
+		handlers = inst.eventHandlers = [
+			{
+				$el: $(window),
+				handlers: {
+					// Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
+					// (see the warning at http://api.jquery.com/unbind/)
+					scroll: function () {inst.checkVisibility();},
+					resize: function () {inst.updateAPI();}
+				}
+			},
+			{
+				$el: inst.sbar,
+				handlers: {
+					scroll: function () {inst.visible &amp;&amp; inst.syncCont(this);}
+				}
+			},
+			{
+				$el: $(inst.cont.block),
+				handlers: {
+					scroll: function () {!inst.visible &amp;&amp; inst.syncSbar(this);},
+					focusin: function () {
+						setTimeout(function () {
+							inst.syncSbar(inst.cont.block);
+						}, 0);
+					},
+					// The `adjustScroll` event type is kept for backward compatibility only.
+					"update.fscroll adjustScroll": function (e) {
+						// Check event namespace to ensure that this is not an extraneous event in a bubbling phase
+						if (e.namespace === "fscroll" || e.type === "adjustScroll") {
+							inst.updateAPI();
+						}
+					},
+					"destroy.fscroll": function (e) {
+						if (e.namespace === "fscroll") {
+							inst.destroyAPI();
+						}
+					}
+				}
+			}
+		];
+		for (i = 0, len = handlers.length; i &lt; len; i++) {
+			handlers[i].$el.bind(handlers[i].handlers);
+		}
+	},
+
+	checkVisibility: function () {
+		var inst = this,
+			cont = inst.cont,
+			mustHide = (inst.sbar[0].scrollWidth &lt;= inst.sbar[0].offsetWidth),
+			maxVisibleY;
+		if (!mustHide) {
+			maxVisibleY = getMaxVisibleY();
+			mustHide = ((cont.bottom &lt;= maxVisibleY) || (cont.top &gt; maxVisibleY));
+		}
+		if (inst.visible === mustHide) {
+			inst.visible = !inst.visible;
+			// we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
+			inst.sbar.toggleClass("fl-scrolls-hidden");
+		}
+	},
+
+	syncCont: function (sender) {
+		this.cont.block.scrollLeft = sender.scrollLeft;
+	},
+
+	syncSbar: function (sender) {
+		this.sbar[0].scrollLeft = sender.scrollLeft;
+	},
+
+	// Recalculate scroll width and container boundaries
+	updateAPI: function () {
+		var inst = this,
+			cont = inst.cont,
+			block = $(cont.block),
+			pos = block.offset();
+		cont.height = block.outerHeight();
+		cont.width = block.outerWidth();
+		cont.left = pos.left;
+		cont.top = pos.top;
+		cont.bottom = pos.top + cont.height;
+		inst.sbar.width(cont.width).css("left", pos.left + "px");
+		$("div", inst.sbar).width(block[0].scrollWidth);
+		inst.checkVisibility(); // fixes issue #2
+	},
+
+	// Remove a scrollbar and all related event handlers
+	destroyAPI: function () {
+		var handlers = this.eventHandlers,
+			i, len;
+		for (i = 0, len = handlers.length; i &lt; len; i++) {
+			handlers[i].$el.unbind(handlers[i].handlers);
+		}
+		this.sbar.remove();
+	}
+
+});
+
+// `attachScroll` is the old alias used in v1.X. Temporally kept for backward compatibility.
+$.fn.attachScroll = $.fn.floatingScroll = function (method) {
+	var $this = this;
+	// IE 6 is not supported owing to its lack of position:fixed support
+	/*@cc_on if (@_jscript_version &lt;= 5.7 &amp;&amp; !window.XMLHttpRequest) return $this; @*/
+	if (!arguments.length || method === "init") {
+		$this.each(function () {
+			new FScroll($(this));
+		});
+	} else if (FScroll.prototype.hasOwnProperty(method + "API")) {
+		$this.trigger(method + ".fscroll");
+	}
+	return $this;
+};
+
+}));
+                </code></pre>
+
+            <h3>Demo code</h3>
+            <pre class="fs-code"><code class="javascript">
+// Plugin initialization
+$(".fs-listing").floatingScroll();
+
+// Destroy or re-create floating scrollbar clicking the button
+$("#fs-listing-toggle").on("click", function () {
+    var $scrollOwner = $(".fs-listing");
+    if ($scrollOwner.hasClass("fs-listing-collapsed")) {
+        $scrollOwner
+            .removeClass("fs-listing-collapsed")
+            .floatingScroll("init");
+    } else {
+        $scrollOwner
+            .addClass("fs-listing-collapsed")
+            .floatingScroll("destroy");
+    }
+});
+            </code></pre>
+        </section>
+    </main>
+
+    <footer>
+        © Amphiluke, 2016
+    </footer>
+
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/jquery.floatingscroll.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
