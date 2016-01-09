@@ -811,27 +811,27 @@
 
             <h3>Demo code</h3>
             <pre class="fs-code"><code class="javascript">
-    // Plugin initialization
-    $(".fs-whatwg").floatingScroll();
+// Plugin initialization
+$(".fs-whatwg").floatingScroll();
 
-    // Handle checkbox state changes and update floating scrollbar
-    $(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
-        var $checkboxes = $(e.delegateTarget).find("input[type='checkbox']"),
-            index;
-        if ($checkboxes.filter(":checked").length) {
-            index = $checkboxes.index(e.target);
-            if (index > -1) {
-                $("#fs-whatwg").find("th, td")
-                    .filter(":nth-child(" + (index + 2) + ")")
-                    .toggleClass("hidden");
-            }
-        } else {
-            $checkboxes.prop("checked", true);
-            $("#fs-whatwg").find("th.hidden, td.hidden").removeClass("hidden");
+// Handle checkbox state changes and update floating scrollbar
+$(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
+    var $checkboxes = $(e.delegateTarget).find("input[type='checkbox']"),
+        index;
+    if ($checkboxes.filter(":checked").length) {
+        index = $checkboxes.index(e.target);
+        if (index > -1) {
+            $("#fs-whatwg").find("th, td")
+                .filter(":nth-child(" + (index + 2) + ")")
+                .toggleClass("hidden");
         }
-        // Force scrollbar update programmatically
-        $(".fs-whatwg").floatingScroll("update");
-    });
+    } else {
+        $checkboxes.prop("checked", true);
+        $("#fs-whatwg").find("th.hidden, td.hidden").removeClass("hidden");
+    }
+    // Force scrollbar update programmatically
+    $(".fs-whatwg").floatingScroll("update");
+});
             </code></pre>
         </section>
 
