@@ -5,7 +5,8 @@
   "main": "src/jquery.floatingscroll.js",
   "style": "src/jquery.floatingscroll.css",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m --comments -o src/jquery.floatingscroll.min.js && echo \"@cc_on comments require manual correction\""
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,8 @@
   "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
   "dependencies": {
     "jquery": ">=1.4.3"
+  },
+  "devDependencies": {
+    "uglify-js": "^2.6.2"
   }
 }
