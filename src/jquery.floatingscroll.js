@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingScroll Plugin v2.2.1
+ * jQuery floatingScroll Plugin v2.2.2
  * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/floating-scroll
@@ -64,13 +64,13 @@ $.extend(FScroll.prototype, {
 			{
 				$el: inst.sbar,
 				handlers: {
-					scroll: function () {inst.visible && inst.syncCont(this);}
+					scroll: function () {inst.visible && inst.syncCont(this, true);}
 				}
 			},
 			{
 				$el: $(inst.cont.block),
 				handlers: {
-					scroll: function () {!inst.visible && inst.syncSbar(this);},
+					scroll: function () {inst.syncSbar(this, true);},
 					focusin: function () {
 						setTimeout(function () {
 							inst.syncSbar(inst.cont.block);
@@ -112,11 +112,23 @@ $.extend(FScroll.prototype, {
 		}
 	},
 
-	syncCont: function (sender) {
+	syncCont: function (sender, preventSyncSbar) {
+		// Prevents next syncSbar function from changing scroll position
+		if (this.preventSyncCont === true) {
+			this.preventSyncCont = false;
+			return;
+		}
+		this.preventSyncSbar = !!preventSyncSbar;
 		this.cont.block.scrollLeft = sender.scrollLeft;
 	},
 
-	syncSbar: function (sender) {
+	syncSbar: function (sender, preventSyncCont) {
+		// Prevents next syncCont function from changing scroll position
+		if (this.preventSyncSbar === true) {
+			this.preventSyncSbar = false;
+			return;
+		}
+		this.preventSyncCont = !!preventSyncCont;
 		this.sbar[0].scrollLeft = sender.scrollLeft;
 	},
 
