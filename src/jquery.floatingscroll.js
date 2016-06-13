@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingScroll Plugin v2.2.2
+ * jQuery floatingScroll Plugin v2.2.3
  * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/floating-scroll
@@ -9,8 +9,8 @@
  */
 (function (global, factory) {
 	"use strict";
-	if (typeof global.define === "function" && global.define.amd) {
-		global.define(["jquery"], factory);
+	if (typeof define === "function" && define.amd) {
+		define(["jquery"], factory);
 	} else if (typeof module === "object" && module.exports) {
 		factory(require("jquery"));
 	} else {
