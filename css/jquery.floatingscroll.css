@@ -14,6 +14,9 @@
     height:1px;
     overflow:hidden;
 }
+.fl-scrolls div:before {
+    content:""; /* fixes #6 */
+}
 .fl-scrolls-hidden {
     bottom:9999px;
 }
