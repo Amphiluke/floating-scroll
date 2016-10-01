@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingScroll Plugin v2.2.3
+ * jQuery floatingScroll Plugin v2.2.5
  * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/floating-scroll
@@ -20,14 +20,8 @@
 
 "use strict";
 
-var se = window,
-	getMaxVisibleY = function () {return se.pageYOffset + se.innerHeight;};
-
-/*@cc_on
-@if (@_jscript_version < 9)
-se = document.documentElement;
-getMaxVisibleY = function () {return se.scrollTop + se.clientHeight;};
-@end @*/
+var wnd = window,
+	getMaxVisibleY = /*@cc_on (@_jscript_version<9)?function(){var e=document.documentElement;return e.scrollTop+e.clientHeight;}:@*/function () {return wnd.pageYOffset + wnd.innerHeight;};
 
 function FScroll(cont) {
 	var inst = this;
@@ -44,7 +38,7 @@ $.extend(FScroll.prototype, {
 	initScroll: function () {
 		var flscroll = $("<div class='fl-scrolls'></div>");
 		$("<div></div>").appendTo(flscroll).css({width: this.cont.block.scrollWidth + "px"});
-		return flscroll.appendTo("body");
+		return flscroll.appendTo(this.cont.block);
 	},
 
 	addEventHandlers: function () {
@@ -53,7 +47,7 @@ $.extend(FScroll.prototype, {
 			i, len;
 		handlers = inst.eventHandlers = [
 			{
-				$el: $(window),
+				$el: $(wnd),
 				handlers: {
 					// Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
 					// (see the warning at http://api.jquery.com/unbind/)
@@ -162,17 +156,14 @@ $.extend(FScroll.prototype, {
 
 // `attachScroll` is the old alias used in v1.X. Temporally kept for backward compatibility.
 $.fn.attachScroll = $.fn.floatingScroll = function (method) {
-	var $this = this;
-	// IE 6 is not supported owing to its lack of position:fixed support
-	/*@cc_on if (@_jscript_version <= 5.7 && !window.XMLHttpRequest) return $this; @*/
 	if (!arguments.length || method === "init") {
-		$this.each(function () {
+		this.each(function () {
 			new FScroll($(this));
 		});
 	} else if (FScroll.prototype.hasOwnProperty(method + "API")) {
-		$this.trigger(method + ".fscroll");
+		this.trigger(method + ".fscroll");
 	}
-	return $this;
+	return this;
 };
 
 }));

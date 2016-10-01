@@ -1,12 +1,12 @@
 {
   "name": "floating-scroll",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "main": "src/jquery.floatingscroll.js",
   "style": "src/jquery.floatingscroll.css",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m --comments -o src/jquery.floatingscroll.min.js && echo \"@cc_on comments require manual correction\""
+    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m --comments -o src/jquery.floatingscroll.min.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "jquery": ">=1.4.3"
   },
   "devDependencies": {
+    "eslint": "^3.7.0",
     "uglify-js": "^2.6.2"
   }
 }
