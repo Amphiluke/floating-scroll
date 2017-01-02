@@ -20,3 +20,15 @@
 .fl-scrolls-hidden {
     bottom:9999px;
 }
+
+.fl-scrolls-viewport {
+    /* It can be any type of positioning except static. Redefine in your CSS as needed */
+    position:relative;
+}
+.fl-scrolls-body {
+    overflow:auto;
+}
+.fl-scrolls-viewport .fl-scrolls {
+    left:0;
+    position:absolute;
+}

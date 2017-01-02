@@ -34,6 +34,22 @@ $("#fs-listing-toggle").on("click", function () {
     }
 });
 
+$("#fs-open-popup").on("click", function (e) {
+    var $popup = $("#fs-popup");
+    $popup.toggleClass("fs-popup-hidden");
+    if ($popup.hasClass("fs-popup-hidden")) {
+        return;
+    }
+    $("#fs-maze").floatingScroll("update");
+    e.stopPropagation();
+    $("body").on("click", function popupOutClick(e) {
+        var $target = $(e.target);
+        if ($target.is(".fs-popup-close") || !$target.closest($popup).length) {
+            $popup.addClass("fs-popup-hidden");
+            $("body").off("click", popupOutClick);
+        }
+    });
+});
 
 if (global.hljs) {
     global.hljs.initHighlightingOnLoad();

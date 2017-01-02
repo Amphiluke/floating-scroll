@@ -1023,10 +1023,72 @@ $("#fs-listing-toggle").on("click", function () {
 });
             </code></pre>
         </section>
+
+        <section id="demo-popup">
+            <h2>#3: Floating scroll bar in a popup</h2>
+
+            <h3>Description</h3>
+            <p>This example demonstrates a special use case for the plugin — a floating scroll bar inside a positioned popup. Please find out the details of this use case in the <a href="https://github.com/Amphiluke/floating-scroll#special-cases">plugin's docs</a>.</p>
+
+            <h3>Live demo</h3>
+            <p><span id="fs-open-popup">Click here to open a popup</span></p>
+            <div id="fs-popup" class="fs-popup fs-popup-hidden fl-scrolls-viewport">
+                <div class="fl-scrolls-body">
+                    <span class="fs-popup-close">Close</span>
+                    <h4>Try to unthread the labyrinth!</h4>
+                    <div id="fs-maze" class="fs-demo fs-maze">
+                        <img src="https://amphiluke.github.io/jquery-plugins/floatingscroll/maze.png" alt="labyrinth" width="1840" height="1086">
+                    </div>
+                    <p>How are you getting on? :)</p>
+                </div>
+            </div>
+
+            <h3>Demo code (key parts)</h3>
+            <h4>HTML:</h4>
+            <pre class="fs-code"><code class="html">
+&lt;!-- Apply the "fl-scrolls-viewport" class to the popup block --&gt;
+&lt;div class="fs-popup fs-popup-hidden fl-scrolls-viewport"&gt;
+    &lt;!-- Apply the "fl-scrolls-body" class to the popup contents block --&gt;
+    &lt;div class="fl-scrolls-body"&gt;
+        &lt;!-- Our horizontally scrollable container --&gt;
+        &lt;div id="fs-maze" class="fs-demo fs-maze"&gt;
+            &lt;!-- Horizontally wide contents --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
+            <h4>CSS:</h4>
+            <pre class="fs-code"><code class="css">
+.fs-popup {
+    height:550px;
+    padding:10px;
+    position:fixed; /* must be positioned (relative is the default) */
+    /* other styles */
+}
+.fs-popup .fl-scrolls-body {
+    height:550px; /* same as for parent (the latter should not be scrollable) */
+    width:100%;
+}
+.fs-popup .fl-scrolls:not(.fl-scrolls-hidden) {
+    bottom:10px; /* same value as the parent's bottom padding */
+    left:10px; /* same value as the parent's left padding */
+}
+            </code></pre>
+            <h4>JavaScript:</h4>
+            <pre class="fs-code"><code class="javascript">
+$("#fs-open-popup").on("click", function (e) {
+    // Show the popup
+    $(".fs-popup").toggleClass("fs-popup-hidden");
+    // ...
+    // You may need to force scroll bar update when the popup becomes visible
+    $("#fs-maze").floatingScroll("update");
+});
+            </code></pre>
+        </section>
     </main>
 
     <footer>
-        © Amphiluke, 2016
+        © Amphiluke, 2017
     </footer>
 
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>

@@ -1,0 +1,23 @@
+{
+  "name": "floating-scroll-demos",
+  "version": "1.0.0",
+  "description": "Live demos for the floatingScroll plugin",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amphiluke/floating-scroll.git"
+  },
+  "author": "Amphiluke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Amphiluke/floating-scroll/issues"
+  },
+  "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
+  "devDependencies": {
+    "less": "^2.7.1",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}
