@@ -1,7 +1,7 @@
 {
   "name": "floating-scroll",
   "title": "floatingScroll",
-  "version": "2.2.5",
+  "version": "2.3.0",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "keywords": [
     "scrollbar",

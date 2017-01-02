@@ -1,11 +1,11 @@
 /*!
- * jQuery floatingScroll Plugin v2.2.5
+ * jQuery floatingScroll Plugin v2.3.0
  * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/floating-scroll
  * http://amphiluke.github.io/floating-scroll/
  *
- * Copyright (c) 2011-2016 Amphiluke
+ * Copyright (c) 2011-2017 Amphiluke
  */
 (function (global, factory) {
     "use strict";
@@ -17,37 +17,36 @@
         factory(global.jQuery);
     }
 }(this, function ($) {
-
     "use strict";
-    
-    var wnd = window,
-        getMaxVisibleY = /*@cc_on (@_jscript_version<9)?function(){var e=document.documentElement;return e.scrollTop+e.clientHeight;}:@*/function () {return wnd.pageYOffset + wnd.innerHeight;};
-    
+
     function FScroll(cont) {
-        var inst = this;
-        inst.cont = {block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0};
+        var inst = this,
+            scrollBody = cont.closest(".fl-scrolls-body");
+        inst.cont = cont[0];
+        if (scrollBody.length) {
+            inst.scrollBody = scrollBody;
+        }
         inst.sbar = inst.initScroll();
         inst.visible = true;
         inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
-        inst.syncSbar(cont[0]);
+        inst.syncSbar(inst.cont);
         inst.addEventHandlers();
     }
-    
+
     $.extend(FScroll.prototype, {
-    
         initScroll: function () {
             var flscroll = $("<div class='fl-scrolls'></div>");
-            $("<div></div>").appendTo(flscroll).css({width: this.cont.block.scrollWidth + "px"});
-            return flscroll.appendTo(this.cont.block);
+            $("<div></div>").appendTo(flscroll).css({width: this.cont.scrollWidth + "px"});
+            return flscroll.appendTo(this.cont);
         },
-    
+
         addEventHandlers: function () {
             var inst = this,
                 handlers,
                 i, len;
             handlers = inst.eventHandlers = [
                 {
-                    $el: $(wnd),
+                    $el: inst.scrollBody || $(window),
                     handlers: {
                         // Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
                         // (see the warning at http://api.jquery.com/unbind/)
@@ -62,12 +61,12 @@
                     }
                 },
                 {
-                    $el: $(inst.cont.block),
+                    $el: $(inst.cont),
                     handlers: {
                         scroll: function () {inst.syncSbar(this, true);},
                         focusin: function () {
                             setTimeout(function () {
-                                inst.syncSbar(inst.cont.block);
+                                inst.syncSbar(inst.cont);
                             }, 0);
                         },
                         // The `adjustScroll` event type is kept for backward compatibility only.
@@ -89,23 +88,26 @@
                 handlers[i].$el.bind(handlers[i].handlers);
             }
         },
-    
+
         checkVisibility: function () {
             var inst = this,
-                cont = inst.cont,
                 mustHide = (inst.sbar[0].scrollWidth <= inst.sbar[0].offsetWidth),
+                contRect,
                 maxVisibleY;
             if (!mustHide) {
-                maxVisibleY = getMaxVisibleY();
-                mustHide = ((cont.bottom <= maxVisibleY) || (cont.top > maxVisibleY));
+                contRect = inst.cont.getBoundingClientRect();
+                maxVisibleY = inst.scrollBody
+                    ? inst.scrollBody[0].getBoundingClientRect().bottom
+                    : window.innerHeight || document.documentElement.clientHeight;
+                mustHide = ((contRect.bottom <= maxVisibleY) || (contRect.top > maxVisibleY));
             }
             if (inst.visible === mustHide) {
-                inst.visible = !inst.visible;
+                inst.visible = !mustHide;
                 // we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
                 inst.sbar.toggleClass("fl-scrolls-hidden");
             }
         },
-    
+
         syncCont: function (sender, preventSyncSbar) {
             // Prevents next syncSbar function from changing scroll position
             if (this.preventSyncCont === true) {
@@ -113,9 +115,9 @@
                 return;
             }
             this.preventSyncSbar = !!preventSyncSbar;
-            this.cont.block.scrollLeft = sender.scrollLeft;
+            this.cont.scrollLeft = sender.scrollLeft;
         },
-    
+
         syncSbar: function (sender, preventSyncCont) {
             // Prevents next syncCont function from changing scroll position
             if (this.preventSyncSbar === true) {
@@ -125,23 +127,20 @@
             this.preventSyncCont = !!preventSyncCont;
             this.sbar[0].scrollLeft = sender.scrollLeft;
         },
-    
+
         // Recalculate scroll width and container boundaries
         updateAPI: function () {
             var inst = this,
                 cont = inst.cont,
-                block = $(cont.block),
-                pos = block.offset();
-            cont.height = block.outerHeight();
-            cont.width = block.outerWidth();
-            cont.left = pos.left;
-            cont.top = pos.top;
-            cont.bottom = pos.top + cont.height;
-            inst.sbar.width(cont.width).css("left", pos.left + "px");
-            $("div", inst.sbar).width(block[0].scrollWidth);
+                pos = cont.getBoundingClientRect();
+            inst.sbar.width($(cont).outerWidth());
+            if (!inst.scrollBody) {
+                inst.sbar.css("left", pos.left + "px");
+            }
+            $("div", inst.sbar).width(cont.scrollWidth);
             inst.checkVisibility(); // fixes issue #2
         },
-    
+
         // Remove a scrollbar and all related event handlers
         destroyAPI: function () {
             var handlers = this.eventHandlers,
@@ -151,9 +150,8 @@
             }
             this.sbar.remove();
         }
-    
     });
-    
+
     // `attachScroll` is the old alias used in v1.X. Temporally kept for backward compatibility.
     $.fn.attachScroll = $.fn.floatingScroll = function (method) {
         if (!arguments.length || method === "init") {
@@ -165,5 +163,4 @@
         }
         return this;
     };
-
 }));
