@@ -19,29 +19,25 @@
 }(this, function ($) {
     "use strict";
 
-    var wnd = window,
-        getMaxVisibleY = /*@cc_on (@_jscript_version<9)?function(){var e=document.documentElement;return e.scrollTop+e.clientHeight;}:@*/function () {return wnd.pageYOffset + wnd.innerHeight;},
-        getMaxVisibleElY = function ($el) {return $el.offset().top + $el.scrollTop() + $el.height();};
-
     function FScroll(cont) {
         var inst = this,
             scrollBody = cont.closest(".fl-scrolls-body");
-        inst.cont = {block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0};
+        inst.cont = cont[0];
         if (scrollBody.length) {
             inst.scrollBody = scrollBody;
         }
         inst.sbar = inst.initScroll();
         inst.visible = true;
         inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
-        inst.syncSbar(cont[0]);
+        inst.syncSbar(inst.cont);
         inst.addEventHandlers();
     }
 
     $.extend(FScroll.prototype, {
         initScroll: function () {
             var flscroll = $("<div class='fl-scrolls'></div>");
-            $("<div></div>").appendTo(flscroll).css({width: this.cont.block.scrollWidth + "px"});
-            return flscroll.appendTo(this.cont.block);
+            $("<div></div>").appendTo(flscroll).css({width: this.cont.scrollWidth + "px"});
+            return flscroll.appendTo(this.cont);
         },
 
         addEventHandlers: function () {
@@ -50,7 +46,7 @@
                 i, len;
             handlers = inst.eventHandlers = [
                 {
-                    $el: inst.scrollBody || $(wnd),
+                    $el: inst.scrollBody || $(window),
                     handlers: {
                         // Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
                         // (see the warning at http://api.jquery.com/unbind/)
@@ -65,12 +61,12 @@
                     }
                 },
                 {
-                    $el: $(inst.cont.block),
+                    $el: $(inst.cont),
                     handlers: {
                         scroll: function () {inst.syncSbar(this, true);},
                         focusin: function () {
                             setTimeout(function () {
-                                inst.syncSbar(inst.cont.block);
+                                inst.syncSbar(inst.cont);
                             }, 0);
                         },
                         // The `adjustScroll` event type is kept for backward compatibility only.
@@ -95,12 +91,15 @@
 
         checkVisibility: function () {
             var inst = this,
-                cont = inst.cont,
                 mustHide = (inst.sbar[0].scrollWidth <= inst.sbar[0].offsetWidth),
+                contRect,
                 maxVisibleY;
             if (!mustHide) {
-                maxVisibleY = inst.scrollBody ? getMaxVisibleElY(inst.scrollBody) : getMaxVisibleY();
-                mustHide = ((cont.bottom <= maxVisibleY) || (cont.top > maxVisibleY));
+                contRect = inst.cont.getBoundingClientRect();
+                maxVisibleY = inst.scrollBody
+                    ? inst.scrollBody[0].getBoundingClientRect().bottom
+                    : window.innerHeight || document.documentElement.clientHeight;
+                mustHide = ((contRect.bottom <= maxVisibleY) || (contRect.top > maxVisibleY));
             }
             if (inst.visible === mustHide) {
                 inst.visible = !mustHide;
@@ -116,7 +115,7 @@
                 return;
             }
             this.preventSyncSbar = !!preventSyncSbar;
-            this.cont.block.scrollLeft = sender.scrollLeft;
+            this.cont.scrollLeft = sender.scrollLeft;
         },
 
         syncSbar: function (sender, preventSyncCont) {
@@ -133,18 +132,12 @@
         updateAPI: function () {
             var inst = this,
                 cont = inst.cont,
-                block = $(cont.block),
-                pos = block.offset();
-            cont.height = block.outerHeight();
-            cont.width = block.outerWidth();
-            cont.left = pos.left;
-            cont.top = pos.top;
-            cont.bottom = pos.top + cont.height;
-            inst.sbar.width(cont.width);
+                pos = cont.getBoundingClientRect();
+            inst.sbar.width($(cont).outerWidth());
             if (!inst.scrollBody) {
                 inst.sbar.css("left", pos.left + "px");
             }
-            $("div", inst.sbar).width(block[0].scrollWidth);
+            $("div", inst.sbar).width(cont.scrollWidth);
             inst.checkVisibility(); // fixes issue #2
         },
 

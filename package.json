@@ -6,7 +6,7 @@
   "style": "src/jquery.floatingscroll.css",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m --comments -o src/jquery.floatingscroll.min.js"
+    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m -o src/jquery.floatingscroll.min.js"
   },
   "repository": {
     "type": "git",
