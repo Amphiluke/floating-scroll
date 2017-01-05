@@ -74,6 +74,19 @@ $(".spacious-container").floatingScroll();
 
 The plugin's CSS provides some basic styles for elements with classes `.fl-scrolls-viewport` and `.fl-scrolls-body`. Feel free to adjust their styles in your stylesheets as needed.
 
+### Placement of the floating scroll bar
+
+To place the scroll bar in a different parent container, use the special indicating class `fl-scrolls-container`.
+
+```html
+<div class="fl-scrolls-container">
+    <!-- Floating scrollbar attaches here -->
+    <div class="spacious-container">
+        <!-- Horizontally wide contents -->
+    </div>
+</div>
+```
+
 ## Live demos
 
 You may find some demos of use the floatingScroll plugin [here](http://amphiluke.github.io/floating-scroll/).

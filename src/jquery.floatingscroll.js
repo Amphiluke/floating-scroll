@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingScroll Plugin v2.3.0
+ * jQuery floatingScroll Plugin v2.3.1
  * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/floating-scroll
@@ -21,10 +21,14 @@
 
     function FScroll(cont) {
         var inst = this,
-            scrollBody = cont.closest(".fl-scrolls-body");
+            scrollBody = cont.closest(".fl-scrolls-body"),
+            scrollContainer = cont.closest(".fl-scrolls-container");
         inst.cont = cont[0];
         if (scrollBody.length) {
             inst.scrollBody = scrollBody;
+        }
+        if (scrollContainer.length) {
+            inst.scrollContainer = scrollContainer;
         }
         inst.sbar = inst.initScroll();
         inst.visible = true;
@@ -37,7 +41,7 @@
         initScroll: function () {
             var flscroll = $("<div class='fl-scrolls'></div>");
             $("<div></div>").appendTo(flscroll).css({width: this.cont.scrollWidth + "px"});
-            return flscroll.appendTo(this.cont);
+            return flscroll.appendTo(this.scrollContainer || this.cont);
         },
 
         addEventHandlers: function () {
@@ -50,7 +54,12 @@
                     handlers: {
                         // Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
                         // (see the warning at http://api.jquery.com/unbind/)
-                        scroll: function () {inst.checkVisibility();},
+                        scroll: function () {inst.checkVisibility();}
+                    }
+                },
+                {
+                    $el: $(window),
+                    handlers: {
                         resize: function () {inst.updateAPI();}
                     }
                 },
@@ -134,8 +143,8 @@
                 cont = inst.cont,
                 pos = cont.getBoundingClientRect();
             inst.sbar.width($(cont).outerWidth());
-            if (!inst.scrollBody) {
-                inst.sbar.css("left", pos.left + "px");
+            if (inst.scrollContainer || !inst.scrollBody) {
+                inst.sbar.css("left", Math.round(pos.left) + "px");
             }
             $("div", inst.sbar).width(cont.scrollWidth);
             inst.checkVisibility(); // fixes issue #2
