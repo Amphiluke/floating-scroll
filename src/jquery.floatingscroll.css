@@ -28,7 +28,3 @@
 .fl-scrolls-body {
     overflow:auto;
 }
-.fl-scrolls-viewport .fl-scrolls {
-    left:0;
-    position:absolute;
-}

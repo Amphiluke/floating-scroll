@@ -115,6 +115,10 @@
                 // we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
                 inst.sbar.toggleClass("fl-scrolls-hidden");
             }
+            // Adjust the floating scroll position
+            if (inst.scrollBody) {
+                inst.sbar.css({ "top": inst.visible ? (maxVisibleY - inst.sbar.height()) + "px" : '' });
+            }
         },
 
         syncCont: function (sender, preventSyncSbar) {
@@ -143,9 +147,8 @@
                 cont = inst.cont,
                 pos = cont.getBoundingClientRect();
             inst.sbar.width($(cont).outerWidth());
-            if (inst.scrollContainer || !inst.scrollBody) {
-                inst.sbar.css("left", Math.round(pos.left) + "px");
-            }
+            inst.sbar.css("left", Math.round(pos.left) + "px");
+            
             $("div", inst.sbar).width(cont.scrollWidth);
             inst.checkVisibility(); // fixes issue #2
         },
