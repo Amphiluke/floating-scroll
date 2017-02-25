@@ -5,6 +5,7 @@
   "main": "src/jquery.floatingscroll.js",
   "style": "src/jquery.floatingscroll.css",
   "scripts": {
+    "lint": "eslint src/jquery.floatingscroll.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "minify": "uglifyjs src/jquery.floatingscroll.js -c -m -o src/jquery.floatingscroll.min.js"
   },
