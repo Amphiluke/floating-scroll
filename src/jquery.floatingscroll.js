@@ -31,6 +31,7 @@
         inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
         inst.syncSbar(inst.cont);
         inst.addEventHandlers();
+
     }
 
     $.extend(FScroll.prototype, {
@@ -84,9 +85,15 @@
                     }
                 }
             ];
-            for (i = 0, len = handlers.length; i < len; i++) {
+
+            document.body.addEventListener('scroll',function(){inst.checkVisibility()});
+            document.body.addEventListener('resize',inst.updateAPI);
+
+            for (i = 1, len = handlers.length; i < len; i++) {
                 handlers[i].$el.bind(handlers[i].handlers);
+
             }
+
         },
 
         checkVisibility: function () {
