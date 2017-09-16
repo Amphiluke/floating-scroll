@@ -76,7 +76,7 @@ The plugin's CSS provides some basic styles for elements with classes `.fl-scrol
 
 ## Live demos
 
-You may find some demos of use the floatingScroll plugin [here](http://amphiluke.github.io/floating-scroll/).
+You may find some demos of use the floatingScroll plugin [here](https://amphiluke.github.io/floating-scroll/).
 
 ## Previous versions
 
