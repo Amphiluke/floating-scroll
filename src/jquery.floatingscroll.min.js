@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingScroll Plugin v2.3.2
+ * jQuery floatingScroll Plugin v2.3.3
  * https://github.com/Amphiluke/floating-scroll
  * (c) 2017 Amphiluke
  */
