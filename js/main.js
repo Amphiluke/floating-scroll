@@ -51,6 +51,10 @@ $("#fs-open-popup").on("click", function (e) {
     });
 });
 
+$("#is-unobtrusive").on("change", function (e) {
+    $(".fs-demo").toggleClass("fl-scrolls-hoverable", e.target.checked);
+});
+
 if (global.hljs) {
     global.hljs.initHighlightingOnLoad();
 }
