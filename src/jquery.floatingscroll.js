@@ -1,11 +1,7 @@
 /*!
- * jQuery floatingScroll Plugin v2.3.1
- * supported by jQuery v1.4.3+
- *
+ * jQuery floatingScroll Plugin v2.3.2
  * https://github.com/Amphiluke/floating-scroll
- * http://amphiluke.github.io/floating-scroll/
- *
- * Copyright (c) 2011-2017 Amphiluke
+ * (c) 2017 Amphiluke
  */
 (function (global, factory) {
     "use strict";
@@ -50,20 +46,28 @@
                     handlers: {
                         // Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
                         // (see the warning at http://api.jquery.com/unbind/)
-                        scroll: function () {inst.checkVisibility();},
-                        resize: function () {inst.updateAPI();}
+                        scroll: function () {
+                            inst.checkVisibility();
+                        },
+                        resize: function () {
+                            inst.updateAPI();
+                        }
                     }
                 },
                 {
                     $el: inst.sbar,
                     handlers: {
-                        scroll: function () {inst.visible && inst.syncCont(this, true);}
+                        scroll: function () {
+                            inst.visible && inst.syncCont(this, true);
+                        }
                     }
                 },
                 {
                     $el: $(inst.cont),
                     handlers: {
-                        scroll: function () {inst.syncSbar(this, true);},
+                        scroll: function () {
+                            inst.syncSbar(this, true);
+                        },
                         focusin: function () {
                             setTimeout(function () {
                                 inst.syncSbar(inst.cont);
@@ -96,9 +100,9 @@
                 maxVisibleY;
             if (!mustHide) {
                 contRect = inst.cont.getBoundingClientRect();
-                maxVisibleY = inst.scrollBody
-                    ? inst.scrollBody[0].getBoundingClientRect().bottom
-                    : window.innerHeight || document.documentElement.clientHeight;
+                maxVisibleY = inst.scrollBody ?
+                    inst.scrollBody[0].getBoundingClientRect().bottom :
+                    window.innerHeight || document.documentElement.clientHeight;
                 mustHide = ((contRect.bottom <= maxVisibleY) || (contRect.top > maxVisibleY));
             }
             if (inst.visible === mustHide) {

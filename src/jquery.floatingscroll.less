@@ -1,0 +1,44 @@
+.fl-scrolls {
+    &, & div {
+        font-size:0;
+        line-height:0;
+        margin:0;
+        padding:0;
+    }
+    & {
+        bottom:0;
+        height:35px;
+        overflow:auto;
+        position:fixed;
+    }
+    & div {
+        height:1px;
+        overflow:hidden;
+    }
+    & div:before {
+        content:""; /* fixes #6 */
+    }
+    &-hidden {
+        bottom:9999px;
+    }
+
+    &-viewport {
+        /* It can be any type of positioning except static. Redefine in your CSS as needed */
+        position:relative;
+    }
+    &-body {
+        overflow:auto;
+    }
+    &-viewport & {
+        left:0;
+        position:absolute;
+    }
+
+    &-hoverable & {
+        opacity:0;
+        transition:opacity 0.5s ease 0.3s;
+    }
+    &-hoverable:hover & {
+        opacity:1;
+    }
+}

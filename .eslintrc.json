@@ -7,21 +7,124 @@
   },
   "extends": "eslint:recommended",
   "rules": {
+    "array-bracket-spacing": [
+      "error"
+    ],
+    "block-spacing": [
+      "error",
+      "never"
+    ],
+    "brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "comma-spacing": [
+      "error"
+    ],
+    "comma-style": [
+      "error"
+    ],
+    "curly": [
+      "error"
+    ],
+    "dot-location": [
+      "error",
+      "property"
+    ],
+    "dot-notation": [
+      "error"
+    ],
+    "eqeqeq": [
+      "error"
+    ],
+    "func-call-spacing": [
+      "error"
+    ],
     "indent": [
       "error",
       4
+    ],
+    "key-spacing": [
+      "error"
+    ],
+    "keyword-spacing": [
+      "error"
     ],
     "linebreak-style": [
       "error",
       "unix"
     ],
+    "new-cap": [
+      "warn"
+    ],
+    "new-parens": [
+      "error"
+    ],
+    "no-multi-spaces": [
+      "error"
+    ],
+    "no-trailing-spaces": [
+      "warn"
+    ],
+    "no-unneeded-ternary": [
+      "warn"
+    ],
+    "no-useless-call": [
+      "error"
+    ],
+    "no-whitespace-before-property": [
+      "warn"
+    ],
+    "object-curly-spacing": [
+      "error"
+    ],
+    "operator-assignment": [
+      "warn"
+    ],
+    "operator-linebreak": [
+      "error",
+      "after"
+    ],
     "quotes": [
       "error",
       "double"
     ],
+    "rest-spread-spacing": [
+      "error"
+    ],
     "semi": [
       "error",
       "always"
+    ],
+    "semi-spacing": [
+      "error"
+    ],
+    "semi-style": [
+      "error"
+    ],
+    "space-before-blocks": [
+      "error"
+    ],
+    "space-before-function-paren": [
+      "error",
+      {"anonymous": "always", "named": "never", "asyncArrow": "always"}
+    ],
+    "space-in-parens": [
+      "error"
+    ],
+    "space-infix-ops": [
+      "error"
+    ],
+    "space-unary-ops": [
+      "error"
+    ],
+    "spaced-comment": [
+      "warn",
+      "always",
+      {"markers": ["!"]}
+    ],
+    "switch-colon-spacing": [
+      "error"
     ]
   }
 }

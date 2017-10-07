@@ -19,7 +19,7 @@
     "jquery-plugin",
     "ecosystem:jquery"
   ],
-  "homepage": "http://amphiluke.github.io/floating-scroll/",
+  "homepage": "https://amphiluke.github.io/floating-scroll/",
   "repository": {
     "type": "git",
     "url": "git://github.com/Amphiluke/floating-scroll.git"

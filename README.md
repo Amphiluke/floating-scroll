@@ -74,6 +74,10 @@ $(".spacious-container").floatingScroll();
 
 The plugin's CSS provides some basic styles for elements with classes `.fl-scrolls-viewport` and `.fl-scrolls-body`. Feel free to adjust their styles in your stylesheets as needed.
 
+### Tips
+
+You can also make a floating scroll bar more “unobtrusive” so that it will appear only when the mouse pointer hovers over the scrollable container. To do so just apply the class `fl-scrolls-hoverable` to the desired scrollable container owning the floating scroll bar.
+
 ## Live demos
 
 You may find some demos of use the floatingScroll plugin [here](https://amphiluke.github.io/floating-scroll/).

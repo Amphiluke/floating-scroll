@@ -1,13 +1,14 @@
 {
   "name": "floating-scroll",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "main": "src/jquery.floatingscroll.js",
   "style": "src/jquery.floatingscroll.css",
   "scripts": {
     "lint": "eslint src/jquery.floatingscroll.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m -o src/jquery.floatingscroll.min.js"
+    "minify": "uglifyjs src/jquery.floatingscroll.js -c -m --comments /^!/ -o src/jquery.floatingscroll.min.js",
+    "make-css": "lessc --clean-css=\"--compatibility=ie8 --advanced\" src/jquery.floatingscroll.less src/jquery.floatingscroll.css"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,14 @@
   "bugs": {
     "url": "https://github.com/Amphiluke/floating-scroll/issues"
   },
-  "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
+  "homepage": "https://amphiluke.github.io/floating-scroll/",
   "dependencies": {
     "jquery": ">=1.4.3"
   },
   "devDependencies": {
-    "eslint": "^3.12.2",
-    "uglify-js": "^2.7.5"
+    "eslint": "^4.8.0",
+    "less": "^2.7.2",
+    "less-plugin-clean-css": "^1.5.1",
+    "uglify-js": "^3.1.3"
   }
 }

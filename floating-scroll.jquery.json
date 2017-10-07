@@ -1,7 +1,7 @@
 {
   "name": "floating-scroll",
   "title": "floatingScroll",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "keywords": [
     "scrollbar",
@@ -11,7 +11,7 @@
   "author": "Amphiluke",
   "license": "MIT",
   "bugs": "https://github.com/Amphiluke/floating-scroll/issues",
-  "homepage": "https://github.com/Amphiluke/floating-scroll",
+  "homepage": "https://amphiluke.github.io/floating-scroll/",
   "docs": "https://github.com/Amphiluke/floating-scroll#readme",
   "download": "https://github.com/Amphiluke/floating-scroll/archive/master.zip",
   "dependencies": {
