@@ -16,6 +16,6 @@ Before submitting a new pull request be sure to do the following things.
 * Before committing your changes please make sure that the plugin sources pass ESLint checks. Just use the command `npm run lint` in the project directory (of course, you need to install the project first by executing `npm install`). Fix any problems reported by ESLint before submitting a pull request.
 * Do not forget to update the minified version of the plugin sources. Use the command `npm run minify` for that. If you changed the file of plugin styles (`jquery.floatingscroll.less`) run `npm run make-css` to update the minified CSS file as well.
 
-Thanks for contribution! :simple_smile:
+Thanks for contribution! :tea:
 
 Amphiluke
