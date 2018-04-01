@@ -14,7 +14,7 @@ Before submitting a new pull request be sure to do the following things.
 * Test your changes in different browsers: Chrome, Firefox, Safari, Opera, Internet Explorer, and Edge.
 * Note that the plugin is currently compatible with ancient versions of jQuery (1.4.3+). If your changes break this compatibility please think if you can rewrite your code to keep compatibility unaffected. However if your changes are so important and cool that they outweigh all benefits of supporting ancient versions of jQuery then it is possible to soften this requirement within reasonable limits.
 * Before committing your changes please make sure that the plugin sources pass ESLint checks. Just use the command `npm run lint` in the project directory (of course, you need to install the project first by executing `npm install`). Fix any problems reported by ESLint before submitting a pull request.
-* Do not forget to update the minified version of the plugin sources. Use the command `npm run minify` for that. If you changed the file of plugin styles (`jquery.floatingscroll.less`) run `npm run make-css` to update the minified CSS file as well.
+* Do not forget to update the minified version of the plugin sources. Use the command `npm run build` for that.
 
 Thanks for contribution! :tea:
 

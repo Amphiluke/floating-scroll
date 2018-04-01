@@ -1,3 +1,5 @@
 .idea
 bower_components
+bower.json
 .eslint*
+rollup.config.js

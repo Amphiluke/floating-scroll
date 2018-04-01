@@ -20,7 +20,7 @@ You may also trigger events `update.fscroll` and `destroy.fscroll` for container
 
 ### Inclusion of plugin files
 
-The plugin requires the CSS file [jquery.floatingscroll.css](src/jquery.floatingscroll.css) to be included on the page (you may also import it in your CSS/LESS files). The plugin's script file [jquery.floatingscroll.min.js](src/jquery.floatingscroll.min.js) may be added on the web page either via a separate `<script>` element or it may be loaded by any AMD/CommonJS compatible module loader. This is a jQuery plugin so be sure that this library is added and accessible.
+The plugin requires the CSS file [jquery.floatingscroll.css](dist/jquery.floatingscroll.css) to be included on the page (you may also import it in your CSS/LESS files). The plugin's script file [jquery.floatingscroll.min.js](dist/jquery.floatingscroll.min.js) may be added on the web page either via a separate `<script>` element or it may be loaded by any AMD/CommonJS compatible module loader. This is a jQuery plugin so be sure that this library is added and accessible.
 
 ### Initialisation
 

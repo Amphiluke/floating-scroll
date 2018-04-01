@@ -3,11 +3,22 @@
     "browser": true,
     "amd": true,
     "commonjs": true,
+    "es6": true,
     "node": true
   },
   "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
   "rules": {
     "array-bracket-spacing": [
+      "error"
+    ],
+    "arrow-body-style": [
+      "warn"
+    ],
+    "arrow-spacing": [
       "error"
     ],
     "block-spacing": [
@@ -22,6 +33,9 @@
       "error"
     ],
     "comma-style": [
+      "error"
+    ],
+    "computed-property-spacing": [
       "error"
     ],
     "curly": [
@@ -60,6 +74,10 @@
     "new-parens": [
       "error"
     ],
+    "no-console": [
+      "error",
+      {"allow": ["info", "warn", "error"]}
+    ],
     "no-multi-spaces": [
       "error"
     ],
@@ -72,11 +90,20 @@
     "no-useless-call": [
       "error"
     ],
+    "no-useless-computed-key": [
+      "error"
+    ],
+    "no-var": [
+      "error"
+    ],
     "no-whitespace-before-property": [
       "warn"
     ],
     "object-curly-spacing": [
       "error"
+    ],
+    "object-shorthand": [
+      "warn"
     ],
     "operator-assignment": [
       "warn"
@@ -84,6 +111,13 @@
     "operator-linebreak": [
       "error",
       "after"
+    ],
+    "prefer-arrow-callback": [
+      "error",
+      {"allowNamedFunctions": true}
+    ],
+    "prefer-rest-params": [
+      "error"
     ],
     "quotes": [
       "error",

@@ -30,7 +30,9 @@
     "bower_components",
     "test",
     "tests",
-    "package.json"
+    "package.json",
+    "package-lock.json",
+    "rollup.config.js"
   ],
   "dependencies": {
     "jquery": ">=1.4.3"
