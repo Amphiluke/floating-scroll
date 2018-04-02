@@ -139,3 +139,7 @@ $.fn.floatingScroll = function (method = "init") {
     }
     return this;
 };
+
+$(document).ready(() => {
+    $("body [data-fl-scrolls]").floatingScroll();
+});

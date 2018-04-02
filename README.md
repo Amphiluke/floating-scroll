@@ -2,35 +2,49 @@
 
 ## The Crux of the Matter
 
-The general purpose of the plugin is to provide some lengthy containers on the page with a separate horizontal scroll bar, which does not vanish from sight when the entire page is scrolled. So, the user will always be able to scroll the container even if its own scroll bar is hidden from view.
+The general purpose of the plugin is to provide some lengthy containers on the page with a separate horizontal scroll bar, which does not vanish from sight when the entire page is scrolled. So, the user will always be able to scroll the container even if its own scroll bar is outside the viewport.
 
-Moreover, the plugin displays such an additional floating scroll bar only in case of actual need, i.e. the floatingScroll does not result in unnecessary scroll bar duplication. So, one uses the floating scroll bar only if the “native” one is out of sight.
+Moreover, the plugin displays such an additional floating scroll bar only in case of actual need, i.e. floatingScroll does not result in unnecessary scroll bar duplication. So, one uses the floating scroll bar only if the “native” one is out of sight.
 
 ## Details & API
 
-There is the only public method used to instantiate and control a floating scroll — `.floatingScroll()` (note that the old method alias `attachScroll` is kept for backward compatibility, but it will be removed in future versions). The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
+There is the only public method used to instantiate and control a floating scroll — `.floatingScroll()`. The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
 
 * `init` (default value) — used to initialize a floating scroll widget;
 * `update` — used to force update of the floating scroll bar parameters (size and position);
 * `destroy` — removes a scroll bar and all related event handlers.
 
-You may also trigger events `update.fscroll` and `destroy.fscroll` for containers with attached floating scroll bar: this does the same as invoking the corresponding methods.
+You may also [trigger](https://api.jquery.com/trigger/) events `update.fscroll` and `destroy.fscroll` on containers with attached floating scroll bar: this does the same as invoking the corresponding methods.
 
 ## Usage
 
 ### Inclusion of plugin files
 
-The plugin requires the CSS file [jquery.floatingscroll.css](dist/jquery.floatingscroll.css) to be included on the page (you may also import it in your CSS/LESS files). The plugin's script file [jquery.floatingscroll.min.js](dist/jquery.floatingscroll.min.js) may be added on the web page either via a separate `<script>` element or it may be loaded by any AMD/CommonJS compatible module loader. This is a jQuery plugin so be sure that this library is added and accessible.
+The plugin requires the CSS file [jquery.floatingscroll.css](dist/jquery.floatingscroll.css) to be included on the page (you may also import it in your CSS/LESS files). The plugin’s script file [jquery.floatingscroll.min.js](dist/jquery.floatingscroll.min.js) may be added on the web page either via a separate `<script>` element, or it may be loaded by any AMD/CommonJS compatible module loader. This is a jQuery plugin so be sure that this library is added and accessible.
+
+**Tip:** :bulb: If you don’t care about supporting old browsers, feel free to use the file [jquery.floatingscroll.es6.min.js](dist/jquery.floatingscroll.es6.min.js), which is de facto the same as jquery.floatingscroll.min.js but is written in ES6, and is a bit smaller.
 
 ### Initialisation
 
-The only thing required to apply the floatingScroll to a static container (whose sizes will never change during the session) is a single call of the `.floatingScroll()` method on the DOM ready event:
+The only thing required to apply floatingScroll to a static container (whose sizes will never change during the session) is a single call of the `.floatingScroll()` method on the DOM ready event:
 
 ```javascript
 $(document).ready(function () {
     $(".spacious-container").floatingScroll();
 });
 ```
+
+### Auto-initialisation
+
+There is another way of initialising the floatingScroll widget without writing a single line of JavaScript code. Just add an attribute `data-fl-scrolls` to the desired container. As the DOM is ready the plugin will detect all such elements and will do initialisation automatically.
+
+```html
+<div class="spacious-container" data-fl-scrolls>
+    <!-- Horizontally wide contents -->
+</div>
+```
+
+_The auto-initialisation feature is available starting with v3.0.0._
 
 ### Updating scroll bar
 
@@ -72,7 +86,7 @@ The `.fl-scrolls-viewport` element (1) is a positioned block (with any type of p
 $(".spacious-container").floatingScroll();
 ```
 
-The plugin's CSS provides some basic styles for elements with classes `.fl-scrolls-viewport` and `.fl-scrolls-body`. Feel free to adjust their styles in your stylesheets as needed.
+The plugin’s CSS file provides some basic styles for elements with classes `.fl-scrolls-viewport` and `.fl-scrolls-body`. Feel free to adjust their styles in your stylesheets as needed.
 
 ### Tips
 
@@ -80,8 +94,4 @@ You can also make a floating scroll bar more “unobtrusive” so that it will a
 
 ## Live demos
 
-You may find some demos of use the floatingScroll plugin [here](https://amphiluke.github.io/floating-scroll/).
-
-## Previous versions
-
-Prior to v2.2.0, the plugin was the part of the [jquery-plugins](https://github.com/Amphiluke/jquery-plugins) repo. If for some purpose you want to get commit history for older plugin versions, you can [extract](https://github.com/Amphiluke/jquery-plugins/commits/master/src/floatingscroll) it from that “old” repo.
+Check out some usage demos [here](https://amphiluke.github.io/floating-scroll/).
