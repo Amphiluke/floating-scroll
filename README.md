@@ -22,7 +22,7 @@ You may also [trigger](https://api.jquery.com/trigger/) events `update.fscroll` 
 
 The plugin requires the CSS file [jquery.floatingscroll.css](dist/jquery.floatingscroll.css) to be included on the page (you may also import it in your CSS/LESS files). The plugin’s script file [jquery.floatingscroll.min.js](dist/jquery.floatingscroll.min.js) may be added on the web page either via a separate `<script>` element, or it may be loaded by any AMD/CommonJS compatible module loader. This is a jQuery plugin so be sure that this library is added and accessible.
 
-**Tip:** :bulb: If you don’t care about supporting old browsers, feel free to use the file [jquery.floatingscroll.es6.min.js](dist/jquery.floatingscroll.es6.min.js), which is de facto the same as jquery.floatingscroll.min.js but is written in ES6, and is a bit smaller.
+:bulb: **Tip:** If you don’t care about supporting old browsers, feel free to use the file [jquery.floatingscroll.es6.min.js](dist/jquery.floatingscroll.es6.min.js), which is de facto the same as jquery.floatingscroll.min.js but is written in ES6, and is a bit smaller.
 
 ### Initialisation
 
