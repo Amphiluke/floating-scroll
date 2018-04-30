@@ -1,5 +1,6 @@
 import pkg from "./package.json";
 import babel from "rollup-plugin-babel";
+import uglify from "rollup-plugin-uglify";
 
 let config = {
     input: "src/jquery.floatingscroll.js",
@@ -15,19 +16,19 @@ ${pkg.homepage}
 (c) ${new Date().getUTCFullYear()} ${pkg.author}
 */`
     },
-    external: ["jquery"]
+    external: ["jquery"],
+    plugins: [
+        uglify({
+            output: {comments: /^!/}
+        })
+    ]
 };
 
 export default [{
     input: config.input,
     output: Object.assign({file: "dist/jquery.floatingscroll.es6.min.js"}, config.output),
     external: config.external,
-    plugins: [
-        babel({
-            exclude: "node_modules/**",
-            presets: ["minify"]
-        })
-    ]
+    plugins: config.plugins
 }, {
     input: config.input,
     output: Object.assign({file: "dist/jquery.floatingscroll.min.js"}, config.output),
@@ -39,9 +40,8 @@ export default [{
                 ["env", {
                     modules: false,
                     loose: true
-                }],
-                "minify"
+                }]
             ]
         })
-    ]
+    ].concat(config.plugins)
 }];
