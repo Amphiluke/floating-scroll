@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>floatingScroll</title>
     <link rel="icon" type="image/png" href="favicon.png"/>
-    <link rel="stylesheet" href="css/main.css?v3.0.1"/>
+    <link rel="stylesheet" href="css/main.css?v3.0.2"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 </head>
 <body>
@@ -844,163 +844,149 @@ $(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
             <h3>Live demo</h3>
             <p><button id="fs-listing-toggle">Expand/Collapse the listing</button> <small>and turn on/off floating scrollbar</small></p>
             <pre id="fs-listing" class="fs-demo fs-code fs-listing"><code class="javascript">
-(function (global, factory) {
-	"use strict";
-	if (typeof global.define === "function" &amp;&amp; global.define.amd) {
-		global.define(["jquery"], factory);
-	} else if (typeof module === "object" &amp;&amp; module.exports) {
-		factory(require("jquery"));
-	} else {
-		factory(global.jQuery);
-	}
-}(this, function ($) {
+import $ from "jquery";
 
-"use strict";
+class FScroll {
+    constructor(cont) {
+        let inst = this;
+        inst.cont = cont[0];
+        let scrollBody = cont.closest(".fl-scrolls-body");
+        if (scrollBody.length) {
+            inst.scrollBody = scrollBody;
+        }
+        inst.sbar = inst.initScroll();
+        inst.visible = true;
+        inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
+        inst.syncSbar(inst.cont);
+        inst.addEventHandlers();
+    }
 
-var se = window,
-	getMaxVisibleY = function () {return se.pageYOffset + se.innerHeight;};
+    initScroll() {
+        let flscroll = $("&lt;div class='fl-scrolls'&gt;&lt;/div&gt;");
+        let {cont} = this;
+        $("&lt;div&gt;&lt;/div&gt;").appendTo(flscroll).css({width: `${cont.scrollWidth}px`});
+        return flscroll.appendTo(cont);
+    }
 
-/*@cc_on
-@if (@_jscript_version &lt; 9)
-se = document.documentElement;
-getMaxVisibleY = function () {return se.scrollTop + se.clientHeight;};
-@end @*/
+    addEventHandlers() {
+        let inst = this;
+        let eventHandlers = inst.eventHandlers = [
+            {
+                $el: inst.scrollBody || $(window),
+                handlers: {
+                    // Don't use `$.proxy()` since it makes impossible event unbinding individually per instance (see the warning at http://api.jquery.com/unbind/)
+                    scroll() {
+                        inst.checkVisibility();
+                    },
+                    resize() {
+                        inst.updateAPI();
+                    }
+                }
+            },
+            {
+                $el: inst.sbar,
+                handlers: {
+                    scroll({target}) {
+                        inst.visible &amp;&amp; inst.syncCont(target, true);
+                    }
+                }
+            },
+            {
+                $el: $(inst.cont),
+                handlers: {
+                    scroll({target}) {
+                        inst.syncSbar(target, true);
+                    },
+                    focusin() {
+                        setTimeout(inst.syncSbar.bind(inst, inst.cont), 0);
+                    },
+                    "update.fscroll"({namespace}) {
+                        if (namespace === "fscroll") { // Check event namespace to ensure that this is not an extraneous event in a bubbling phase
+                            inst.updateAPI();
+                        }
+                    },
+                    "destroy.fscroll"({namespace}) {
+                        if (namespace === "fscroll") {
+                            inst.destroyAPI();
+                        }
+                    }
+                }
+            }
+        ];
+        eventHandlers.forEach(({$el, handlers}) =&gt; $el.bind(handlers));
+    }
 
-function FScroll(cont) {
-	var inst = this;
-	inst.cont = {block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0};
-	inst.sbar = inst.initScroll();
-	inst.visible = true;
-	inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
-	inst.syncSbar(cont[0]);
-	inst.addEventHandlers();
+    checkVisibility() {
+        let inst = this;
+        let mustHide = (inst.sbar[0].scrollWidth &lt;= inst.sbar[0].offsetWidth);
+        if (!mustHide) {
+            let contRect = inst.cont.getBoundingClientRect();
+            let maxVisibleY = inst.scrollBody ?
+                inst.scrollBody[0].getBoundingClientRect().bottom :
+                window.innerHeight || document.documentElement.clientHeight;
+            mustHide = ((contRect.bottom &lt;= maxVisibleY) || (contRect.top &gt; maxVisibleY));
+        }
+        if (inst.visible === mustHide) {
+            inst.visible = !mustHide;
+            // we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
+            inst.sbar.toggleClass("fl-scrolls-hidden");
+        }
+    }
+
+    syncCont(sender, preventSyncSbar) {
+        let inst = this;
+        // Prevents next syncSbar function from changing scroll position
+        if (inst.preventSyncCont === true) {
+            inst.preventSyncCont = false;
+            return;
+        }
+        inst.preventSyncSbar = !!preventSyncSbar;
+        inst.cont.scrollLeft = sender.scrollLeft;
+    }
+
+    syncSbar(sender, preventSyncCont) {
+        let inst = this;
+        // Prevents next syncCont function from changing scroll position
+        if (inst.preventSyncSbar === true) {
+            inst.preventSyncSbar = false;
+            return;
+        }
+        inst.preventSyncCont = !!preventSyncCont;
+        inst.sbar[0].scrollLeft = sender.scrollLeft;
+    }
+
+    // Recalculate scroll width and container boundaries
+    updateAPI() {
+        let inst = this;
+        let {cont} = inst;
+        inst.sbar.width($(cont).outerWidth());
+        if (!inst.scrollBody) {
+            inst.sbar.css("left", `${cont.getBoundingClientRect().left}px`);
+        }
+        $("div", inst.sbar).width(cont.scrollWidth);
+        inst.checkVisibility(); // fixes issue #2
+    }
+
+    // Remove a scrollbar and all related event handlers
+    destroyAPI() {
+        this.eventHandlers.forEach(({$el, handlers}) =&gt; $el.unbind(handlers));
+        this.eventHandlers = null;
+        this.sbar.remove();
+    }
 }
 
-$.extend(FScroll.prototype, {
-
-	initScroll: function () {
-		var flscroll = $("&lt;div class='fl-scrolls'&gt;&lt;/div&gt;");
-		$("&lt;div&gt;&lt;/div&gt;").appendTo(flscroll).css({width: this.cont.block.scrollWidth + "px"});
-		return flscroll.appendTo("body");
-	},
-
-	addEventHandlers: function () {
-		var inst = this,
-			handlers,
-			i, len;
-		handlers = inst.eventHandlers = [
-			{
-				$el: $(window),
-				handlers: {
-					// Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
-					// (see the warning at http://api.jquery.com/unbind/)
-					scroll: function () {inst.checkVisibility();},
-					resize: function () {inst.updateAPI();}
-				}
-			},
-			{
-				$el: inst.sbar,
-				handlers: {
-					scroll: function () {inst.visible &amp;&amp; inst.syncCont(this);}
-				}
-			},
-			{
-				$el: $(inst.cont.block),
-				handlers: {
-					scroll: function () {!inst.visible &amp;&amp; inst.syncSbar(this);},
-					focusin: function () {
-						setTimeout(function () {
-							inst.syncSbar(inst.cont.block);
-						}, 0);
-					},
-					// The `adjustScroll` event type is kept for backward compatibility only.
-					"update.fscroll adjustScroll": function (e) {
-						// Check event namespace to ensure that this is not an extraneous event in a bubbling phase
-						if (e.namespace === "fscroll" || e.type === "adjustScroll") {
-							inst.updateAPI();
-						}
-					},
-					"destroy.fscroll": function (e) {
-						if (e.namespace === "fscroll") {
-							inst.destroyAPI();
-						}
-					}
-				}
-			}
-		];
-		for (i = 0, len = handlers.length; i &lt; len; i++) {
-			handlers[i].$el.bind(handlers[i].handlers);
-		}
-	},
-
-	checkVisibility: function () {
-		var inst = this,
-			cont = inst.cont,
-			mustHide = (inst.sbar[0].scrollWidth &lt;= inst.sbar[0].offsetWidth),
-			maxVisibleY;
-		if (!mustHide) {
-			maxVisibleY = getMaxVisibleY();
-			mustHide = ((cont.bottom &lt;= maxVisibleY) || (cont.top &gt; maxVisibleY));
-		}
-		if (inst.visible === mustHide) {
-			inst.visible = !inst.visible;
-			// we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
-			inst.sbar.toggleClass("fl-scrolls-hidden");
-		}
-	},
-
-	syncCont: function (sender) {
-		this.cont.block.scrollLeft = sender.scrollLeft;
-	},
-
-	syncSbar: function (sender) {
-		this.sbar[0].scrollLeft = sender.scrollLeft;
-	},
-
-	// Recalculate scroll width and container boundaries
-	updateAPI: function () {
-		var inst = this,
-			cont = inst.cont,
-			block = $(cont.block),
-			pos = block.offset();
-		cont.height = block.outerHeight();
-		cont.width = block.outerWidth();
-		cont.left = pos.left;
-		cont.top = pos.top;
-		cont.bottom = pos.top + cont.height;
-		inst.sbar.width(cont.width).css("left", pos.left + "px");
-		$("div", inst.sbar).width(block[0].scrollWidth);
-		inst.checkVisibility(); // fixes issue #2
-	},
-
-	// Remove a scrollbar and all related event handlers
-	destroyAPI: function () {
-		var handlers = this.eventHandlers,
-			i, len;
-		for (i = 0, len = handlers.length; i &lt; len; i++) {
-			handlers[i].$el.unbind(handlers[i].handlers);
-		}
-		this.sbar.remove();
-	}
-
-});
-
-// `attachScroll` is the old alias used in v1.X. Temporally kept for backward compatibility.
-$.fn.attachScroll = $.fn.floatingScroll = function (method) {
-	var $this = this;
-	// IE 6 is not supported owing to its lack of position:fixed support
-	/*@cc_on if (@_jscript_version &lt;= 5.7 &amp;&amp; !window.XMLHttpRequest) return $this; @*/
-	if (!arguments.length || method === "init") {
-		$this.each(function () {
-			new FScroll($(this));
-		});
-	} else if (FScroll.prototype.hasOwnProperty(method + "API")) {
-		$this.trigger(method + ".fscroll");
-	}
-	return $this;
+$.fn.floatingScroll = function (method = "init") {
+    if (method === "init") {
+        this.each((index, el) =&gt; new FScroll($(el)));
+    } else if (FScroll.prototype.hasOwnProperty(`${method}API`)) {
+        this.trigger(`${method}.fscroll`);
+    }
+    return this;
 };
 
-}));
+$(document).ready(() =&gt; {
+    $("body [data-fl-scrolls]").floatingScroll();
+});
                 </code></pre>
 
             <h3>Demo code</h3>
@@ -1105,8 +1091,8 @@ $("#fs-open-popup").on("click", function (e) {
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="js/jquery.floatingscroll.min.js?v3.0.1"></script>
+    <script src="js/jquery.floatingscroll.min.js?v3.0.2"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="js/main.js?v3.0.1"></script>
+    <script src="js/main.js?v3.0.2"></script>
 </body>
 </html>
