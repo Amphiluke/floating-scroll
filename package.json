@@ -23,6 +23,6 @@
     "less-plugin-clean-css": "^1.5.1"
   },
   "dependencies": {
-    "floating-scroll": "git+https://github.com/Amphiluke/floating-scroll.git"
+    "floating-scroll": "^3.0.2"
   }
 }
