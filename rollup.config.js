@@ -1,6 +1,6 @@
 import pkg from "./package.json";
 import babel from "rollup-plugin-babel";
-import uglify from "rollup-plugin-uglify";
+import {terser} from "rollup-plugin-terser";
 
 let config = {
     input: "src/jquery.floatingscroll.js",
@@ -18,7 +18,7 @@ ${pkg.homepage}
     },
     external: ["jquery"],
     plugins: [
-        uglify({
+        terser({
             output: {comments: /^!/}
         })
     ]

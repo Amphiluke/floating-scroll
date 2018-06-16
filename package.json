@@ -29,12 +29,12 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
-    "less": "^3.0.2",
+    "less": "^3.0.4",
     "less-plugin-clean-css": "^1.5.1",
-    "rollup": "^0.58.2",
+    "rollup": "^0.60.7",
     "rollup-plugin-babel": "^3.0.4",
-    "rollup-plugin-uglify": "^3.0.0"
+    "rollup-plugin-terser": "^1.0.1"
   }
 }
