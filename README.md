@@ -10,9 +10,9 @@ Moreover, the plugin displays such an additional floating scroll bar only in cas
 
 There is the only public method used to instantiate and control a floating scroll — `.floatingScroll()`. The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
 
-* `init` (default value) — used to initialize a floating scroll widget;
-* `update` — used to force update of the floating scroll bar parameters (size and position);
-* `destroy` — removes a scroll bar and all related event handlers.
+* [`init`](#initialisation) (default value) — used to initialize a floating scroll widget;
+* [`update`](#updating-scroll-bar) — used to force update of the floating scroll bar parameters (size and position);
+* [`destroy`](#destroying-floating-scroll-bar) — removes a scroll bar and all related event handlers.
 
 You may also [trigger](https://api.jquery.com/trigger/) events `update.fscroll` and `destroy.fscroll` on containers with attached floating scroll bar: this does the same as invoking the corresponding methods.
 
