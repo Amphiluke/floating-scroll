@@ -4,13 +4,13 @@
 
 The general purpose of the plugin is to provide some lengthy containers on the page with a separate horizontal scroll bar, which does not vanish from sight when the entire page is scrolled. So, the user will always be able to scroll the container even if its own scroll bar is outside the viewport.
 
-Moreover, the plugin displays such an additional floating scroll bar only in case of actual need, i.e. floatingScroll does not result in unnecessary scroll bar duplication. So, one uses the floating scroll bar only if the “native” one is out of sight.
+:bulb: **Tip:** floating-scroll is a jQuery plugin. If you are rather looking for a standalone dependency-free module with the same functionality, please check out the sister project [handy-scroll](https://github.com/Amphiluke/handy-scroll) instead.
 
 ## Details & API
 
-There is the only public method used to instantiate and control a floating scroll — `.floatingScroll()`. The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
+There is the only public method used to instantiate and control a floating scroll bar — `.floatingScroll()`. The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
 
-* [`init`](#initialisation) (default value) — used to initialize a floating scroll widget;
+* [`init`](#initialisation) (default value) — used to initialize a floating scroll bar widget;
 * [`update`](#updating-scroll-bar) — used to force update of the floating scroll bar parameters (size and position);
 * [`destroy`](#destroying-floating-scroll-bar) — removes a scroll bar and all related event handlers.
 
@@ -48,7 +48,7 @@ _The auto-initialisation feature is available starting with v3.0.0._
 
 ### Updating scroll bar
 
-If you attach a floating scroll bar to a container whose size and/or content may dynamically change, then you need a way to update the scroll bar each time the container changes. This can be done by invoking the method `update` as in example below.
+If you attach a floating scroll bar to a container whose size and/or content may dynamically change, then you need a way to update the scroll bar each time the container’s sizes change. This can be done by invoking the method `update` as in the example below.
 
 ```javascript
 $(".spacious-container").floatingScroll("init");
@@ -88,9 +88,9 @@ $(".spacious-container").floatingScroll();
 
 The plugin’s CSS file provides some basic styles for elements with classes `.fl-scrolls-viewport` and `.fl-scrolls-body`. Feel free to adjust their styles in your stylesheets as needed.
 
-### Tips
+### “Unobtrusive” mode
 
-You can also make a floating scroll bar more “unobtrusive” so that it will appear only when the mouse pointer hovers over the scrollable container. To do so just apply the class `fl-scrolls-hoverable` to the desired scrollable container owning the floating scroll bar.
+You can make a floating scroll bar more “unobtrusive” so that it will appear only when the mouse pointer hovers over the scrollable container. To do so just apply the class `fl-scrolls-hoverable` to the desired scrollable container owning the floating scroll bar.
 
 ## Live demos
 
