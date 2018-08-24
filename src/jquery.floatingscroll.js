@@ -123,6 +123,7 @@ let floatingScrollProto = {
             widget.css("left", `${container.getBoundingClientRect().left}px`);
         }
         $("div", widget).width(container.scrollWidth);
+        instance.syncWidget();
         instance.checkVisibility(); // fixes issue #2
     },
 
