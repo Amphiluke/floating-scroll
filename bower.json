@@ -2,8 +2,8 @@
   "name": "floating-scroll",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "main": [
-    "src/jquery.floatingscroll.js",
-    "src/jquery.floatingscroll.css"
+    "dist/jquery.floatingscroll.min.js",
+    "dist/jquery.floatingscroll.css"
   ],
   "moduleType": [
     "amd",
@@ -16,6 +16,8 @@
   "license": "MIT",
   "keywords": [
     "scrollbar",
+    "widget",
+    "user-interface",
     "jquery-plugin",
     "ecosystem:jquery"
   ],

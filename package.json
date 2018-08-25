@@ -1,6 +1,6 @@
 {
   "name": "floating-scroll",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "main": "dist/jquery.floatingscroll.min.js",
   "module": "src/jquery.floatingscroll.js",
@@ -16,6 +16,8 @@
   },
   "keywords": [
     "scrollbar",
+    "widget",
+    "user-interface",
     "jquery-plugin",
     "ecosystem:jquery"
   ],
@@ -31,11 +33,17 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^4.19.1",
-    "less": "^3.0.4",
+    "eslint": "^5.4.0",
+    "husky": "^1.0.0-rc.13",
+    "less": "^3.8.1",
     "less-plugin-clean-css": "^1.5.1",
-    "rollup": "^0.60.7",
-    "rollup-plugin-babel": "^3.0.4",
+    "rollup": "^0.64.1",
+    "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-terser": "^1.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
