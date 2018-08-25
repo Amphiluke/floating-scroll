@@ -19,10 +19,10 @@
   "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
   "devDependencies": {
     "copyfiles": "^2.0.0",
-    "less": "^3.0.1",
+    "less": "^3.8.1",
     "less-plugin-clean-css": "^1.5.1"
   },
   "dependencies": {
-    "floating-scroll": "^3.0.2"
+    "floating-scroll": "^3.0.3"
   }
 }

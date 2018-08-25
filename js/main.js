@@ -42,7 +42,7 @@ $("#fs-open-popup").on("click", function (e) {
     }
     $("#fs-maze").floatingScroll("update");
     e.stopPropagation();
-    $("body").on("click", function popupOutClick(e) {
+    $(document).on("click", function popupOutClick(e) {
         var $target = $(e.target);
         if ($target.is(".fs-popup-close") || !$target.closest($popup).length) {
             $popup.addClass("fs-popup-hidden");
