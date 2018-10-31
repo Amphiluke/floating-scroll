@@ -11,7 +11,7 @@ let floatingScrollProto = {
         instance.visible = true;
         instance.initWidget();
         instance.updateAPI(); // recalculate scrollbar parameters and set its visibility
-        instance.syncWidget(instance.container);
+        instance.syncWidget();
         instance.addEventHandlers();
     },
 
@@ -118,7 +118,7 @@ let floatingScrollProto = {
     updateAPI() {
         let instance = this;
         let {widget, container, scrollBody} = instance;
-        widget.width($(container).outerWidth());
+        widget.width(container.clientWidth);
         if (!scrollBody) {
             widget.css("left", `${container.getBoundingClientRect().left}px`);
         }
