@@ -33,15 +33,5 @@ export default [{
     input: config.input,
     output: Object.assign({file: "dist/jquery.floatingscroll.min.js"}, config.output),
     external: config.external,
-    plugins: [
-        babel({
-            exclude: "node_modules/**",
-            presets: [
-                ["env", {
-                    modules: false,
-                    loose: true
-                }]
-            ]
-        })
-    ].concat(config.plugins)
+    plugins: [babel()].concat(config.plugins)
 }];
