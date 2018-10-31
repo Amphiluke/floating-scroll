@@ -1,6 +1,6 @@
 {
   "name": "floating-scroll-demos",
-  "version": "3.0.2",
+  "version": "3.0.4",
   "description": "Live demos for the floatingScroll plugin",
   "main": "js/main.js",
   "scripts": {
@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
   "devDependencies": {
-    "copyfiles": "^2.0.0",
+    "copyfiles": "^2.1.0",
     "less": "^3.8.1",
     "less-plugin-clean-css": "^1.5.1"
   },
   "dependencies": {
-    "floating-scroll": "^3.0.3"
+    "floating-scroll": "^3.0.4"
   }
 }
