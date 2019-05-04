@@ -118,11 +118,16 @@ let floatingScrollProto = {
     updateAPI() {
         let instance = this;
         let {widget, container, scrollBody} = instance;
-        widget.width(container.clientWidth);
+        let {clientWidth, scrollWidth} = container;
+        widget.width(clientWidth);
         if (!scrollBody) {
             widget.css("left", `${container.getBoundingClientRect().left}px`);
         }
-        $("div", widget).width(container.scrollWidth);
+        $("div", widget).width(scrollWidth);
+        // Fit widget height to the native scroll bar height if needed
+        if (scrollWidth > clientWidth) {
+            widget.height(widget[0].offsetHeight - widget[0].clientHeight + 1); // +1px JIC
+        }
         instance.syncWidget();
         instance.checkVisibility(); // fixes issue #2
     },
