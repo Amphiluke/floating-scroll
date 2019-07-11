@@ -144,7 +144,7 @@ let floatingScrollProto = {
 $.fn.floatingScroll = function (method = "init") {
     if (method === "init") {
         this.each((index, el) => Object.create(floatingScrollProto).init($(el)));
-    } else if (floatingScrollProto.hasOwnProperty(`${method}API`)) {
+    } else if (Object.prototype.hasOwnProperty.call(floatingScrollProto, `${method}API`)) {
         this.trigger(`${method}.fscroll`);
     }
     return this;

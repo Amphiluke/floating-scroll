@@ -27,19 +27,19 @@
     "url": "https://github.com/Amphiluke/floating-scroll/issues"
   },
   "homepage": "https://amphiluke.github.io/floating-scroll/",
-  "dependencies": {
-    "jquery": ">=1.4.3"
-  },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
     "clean-css-cli": "^4.3.0",
-    "eslint": "^5.16.0",
-    "husky": "^2.4.0",
+    "eslint": "^6.0.1",
+    "husky": "^3.0.0",
     "less": "^3.9.0",
-    "rollup": "^1.14.2",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-terser": "^5.0.0"
+    "rollup": "^1.16.7",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.1"
+  },
+  "peerDependencies": {
+    "jquery": ">=1.4.3"
   },
   "husky": {
     "hooks": {
