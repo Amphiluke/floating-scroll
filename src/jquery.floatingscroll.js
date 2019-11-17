@@ -13,6 +13,8 @@ let floatingScrollProto = {
         instance.updateAPI(); // recalculate scrollbar parameters and set its visibility
         instance.syncWidget();
         instance.addEventHandlers();
+        // Set skipSync flags to their initial values (because update() above calls syncWidget())
+        instance.skipSyncContainer = instance.skipSyncWidget = false;
     },
 
     initWidget() {
