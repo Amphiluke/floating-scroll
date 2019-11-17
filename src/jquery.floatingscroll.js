@@ -11,8 +11,9 @@ let floatingScrollProto = {
         instance.visible = true;
         instance.initWidget();
         instance.updateAPI(); // recalculate scrollbar parameters and set its visibility
-        instance.syncWidget();
         instance.addEventHandlers();
+        // Set skipSync flags to their initial values (because update() above calls syncWidget())
+        instance.skipSyncContainer = instance.skipSyncWidget = false;
     },
 
     initWidget() {
@@ -42,9 +43,12 @@ let floatingScrollProto = {
                 $el: instance.widget,
                 handlers: {
                     scroll() {
-                        if (instance.visible) {
-                            instance.syncContainer(true);
+                        if (instance.visible && !instance.skipSyncContainer) {
+                            instance.syncContainer();
                         }
+                        // Resume widget->container syncing after the widget scrolling has finished
+                        // (it might be temporally disabled by the container while syncing the widget)
+                        instance.skipSyncContainer = false;
                     }
                 }
             },
@@ -52,7 +56,12 @@ let floatingScrollProto = {
                 $el: $(instance.container),
                 handlers: {
                     scroll() {
-                        instance.syncWidget(true);
+                        if (!instance.skipSyncWidget) {
+                            instance.syncWidget();
+                        }
+                        // Resume container->widget syncing after the container scrolling has finished
+                        // (it might be temporally disabled by the widget while syncing the container)
+                        instance.skipSyncWidget = false;
                     },
                     focusin() {
                         setTimeout(() => instance.syncWidget(), 0);
@@ -92,26 +101,26 @@ let floatingScrollProto = {
         }
     },
 
-    syncContainer(skipSyncWidget = false) {
+    syncContainer() {
         let instance = this;
-        // Prevents next syncWidget function from changing scroll position
-        if (instance.skipSyncContainer === true) {
-            instance.skipSyncContainer = false;
-            return;
+        let {scrollLeft} = instance.widget[0];
+        if (instance.container.scrollLeft !== scrollLeft) {
+            // Prevents container’s “scroll” event handler from syncing back again widget scroll position
+            instance.skipSyncWidget = true;
+            // Note that this makes container’s “scroll” event handlers execute
+            instance.container.scrollLeft = scrollLeft;
         }
-        instance.skipSyncWidget = skipSyncWidget;
-        instance.container.scrollLeft = instance.widget[0].scrollLeft;
     },
 
-    syncWidget(skipSyncContainer = false) {
+    syncWidget() {
         let instance = this;
-        // Prevents next syncContainer function from changing scroll position
-        if (instance.skipSyncWidget === true) {
-            instance.skipSyncWidget = false;
-            return;
+        let {scrollLeft} = instance.container;
+        if (instance.widget[0].scrollLeft !== scrollLeft) {
+            // Prevents widget’s “scroll” event handler from syncing back again container scroll position
+            instance.skipSyncContainer = true;
+            // Note that this makes widget’s “scroll” event handlers execute
+            instance.widget[0].scrollLeft = scrollLeft;
         }
-        instance.skipSyncContainer = skipSyncContainer;
-        instance.widget[0].scrollLeft = instance.container.scrollLeft;
     },
 
     // Recalculate scroll width and container boundaries
