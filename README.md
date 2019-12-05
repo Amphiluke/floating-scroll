@@ -4,7 +4,11 @@
 
 The general purpose of the plugin is to provide some lengthy containers on the page with a separate horizontal scroll bar, which does not vanish from sight when the entire page is scrolled. So, the user will always be able to scroll the container even if its own scroll bar is outside the viewport.
 
-:bulb: **Tip:** floating-scroll is a jQuery plugin. If you are rather looking for a standalone dependency-free module with the same functionality, please check out the sibling project [handy-scroll](https://github.com/Amphiluke/handy-scroll) instead.
+:bulb: **Tips:**
+
+* floating-scroll is a jQuery plugin. If you are rather looking for a standalone dependency-free module with the same functionality, please check out the sibling project [handy-scroll](https://github.com/Amphiluke/handy-scroll) instead.
+* Developing a Vue-based app? Consider using the [vue-handy-scroll](https://github.com/Amphiluke/vue-handy-scroll) component.
+
 
 ## Details & API
 
