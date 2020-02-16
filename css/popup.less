@@ -1,0 +1,112 @@
+.fs-popup {
+    background:#fff;
+    box-shadow:0 0 0 100vw fade(#000, 75%);
+    height:550px;
+    left:50%;
+    margin-left:-700px / 2;
+    padding:33px 10px 10px;
+    position:fixed;
+    text-align:center;
+    top:20px;
+    width:700px;
+    z-index:1;
+
+    &.fs-popup-hidden {
+        box-shadow:none;
+        left:-99999px;
+        top:-99999px;
+    }
+
+    &-panel {
+        background:lighten(#9dc7ed, 15%);
+        display:flex;
+        left:0;
+        position:absolute;
+        top:0;
+        width:100%;
+    }
+    &-close {
+        align-items:center;
+        background:#c00;
+        color:#fff;
+        cursor:pointer;
+        display:flex;
+        flex-shrink:0;
+        font-size:28px;
+        font-weight:bold;
+        height:30px;
+        justify-content:center;
+        width:30px;
+    }
+
+    h4 {
+        font-size:1.5em;
+        margin:0.5em 0;
+    }
+
+    .fl-scrolls-body {
+        height:550px;
+        width:100%;
+    }
+
+    .fl-scrolls[data-orientation="horizontal"]:not(.fl-scrolls-hidden) {
+        bottom:10px; // same value as the bottom padding
+        left:10px; // same value as the left padding
+    }
+}
+
+.fs-orientation {
+    align-items:center;
+    border-style:none;
+    display:flex;
+    flex-grow:1;
+    padding-left:20px;
+    text-align:left;
+    label {
+        margin-left:20px;
+    }
+}
+
+.fs-maze {
+    font-size:0;
+    line-height:0;
+    overflow:auto;
+    width:100%;
+
+    &[data-fs-orientation="vertical"] {
+        display:inline-block;
+        height:70%;
+        margin:0 30px;
+        overflow-x:hidden;
+        overflow-y:auto;
+        width:auto;
+    }
+
+    img {
+        vertical-align:top;
+    }
+}
+
+#fs-open-popup {
+    color:#1e70ff;
+    cursor:pointer;
+    &:hover {
+        color:darken(#1e70ff, 10%);
+    }
+}
+
+@media (max-width:719px), (max-height:569px) {
+    .fs-popup {
+        box-shadow:none;
+        box-sizing:border-box;
+        height:100%;
+        left:0;
+        margin:0;
+        top:0;
+        width:100%;
+    }
+
+    .fl-scrolls-body {
+        max-height:100%;
+    }
+}

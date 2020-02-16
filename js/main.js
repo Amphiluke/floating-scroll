@@ -51,6 +51,19 @@ $("#fs-open-popup").on("click", function (e) {
     });
 });
 
+$(".fs-orientation input[name='orientation']").on("change", function (e) {
+    var orientation = e.target.value;
+    var container = $("#fs-maze");
+    container
+        .floatingScroll("destroy")
+        .attr("data-fs-orientation", orientation)
+        .floatingScroll("init", {orientation: orientation});
+    // This is only needed when working in “custom viewport” mode
+    if (orientation === "vertical") {
+        container.children(".fl-scrolls").css("top", container.position().top + "px");
+    }
+});
+
 $("#is-unobtrusive").on("change", function (e) {
     $(".fs-demo").toggleClass("fl-scrolls-hoverable", e.target.checked);
 });

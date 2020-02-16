@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>floatingScroll</title>
     <link rel="icon" type="image/png" href="favicon.png"/>
-    <link rel="stylesheet" href="css/main.css?v3.0.7"/>
+    <link rel="stylesheet" href="css/main.css?v3.1.0"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <meta name="description" content="Lightweight jQuery plugin providing floating scrollbar functionality">
     <meta property="og:url" content="https://amphiluke.github.io/floating-scroll">
@@ -23,7 +23,7 @@
     <main>
         <section>
             <h2>Introductory remarks</h2>
-            <p>Below, you will find some demos using <code>floatingScroll</code>, a jQuery plugin providing any lengthy containers on the page with a separate horizontal scroll bar, which does not get out of sight when the entire page is scrolled.</p>
+            <p>Below, you will find some demos using <code>floatingScroll</code>, a jQuery plugin providing any lengthy containers on the page with a separate horizontal scrollbar, which does not get out of sight when the entire page is scrolled.</p>
             <p>If you are looking for a guide on plugin usage and API please check out this <a href="https://github.com/Amphiluke/floating-scroll#floating-scroll">README</a> on GitHub.</p>
         </section>
 
@@ -935,7 +935,7 @@ class FScroll {
         }
         if (inst.visible === mustHide) {
             inst.visible = !mustHide;
-            // we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
+            // we cannot simply hide a floating scrollbar since its scrollLeft property will not update in that case
             inst.sbar.toggleClass("fl-scrolls-hidden");
         }
     }
@@ -1018,22 +1018,34 @@ $("#fs-listing-toggle").on("click", function () {
         </section>
 
         <section id="demo-popup">
-            <h2>#3: Floating scroll bar in a popup</h2>
+            <h2>#3: Floating scrollbar in a popup</h2>
 
             <h3>Description</h3>
-            <p>This example demonstrates a special use case for the plugin — a floating scroll bar inside a positioned popup. Please find out the details of this use case in the <a href="https://github.com/Amphiluke/floating-scroll#special-cases">plugin's docs</a>.</p>
+            <p>This example demonstrates two special use cases:</p>
+            <ol>
+                <li>floating scrollbar inside a positioned popup;</li>
+                <li>vertical floating scrollbar.</li>
+            </ol>
+            <p>Please find out the details of the “custom viewport” mode in the <a href="https://github.com/Amphiluke/floating-scroll#special-cases">plugin’s docs</a>.</p>
 
             <h3>Live demo</h3>
             <p><span id="fs-open-popup">Click here to open a popup</span></p>
             <div id="fs-popup" class="fs-popup fs-popup-hidden fl-scrolls-viewport">
-                <div class="fl-scrolls-body">
-                    <span class="fs-popup-close">Close</span>
+                <form action="#" class="fl-scrolls-body" autocomplete="off">
+                    <div class="fs-popup-panel">
+                        <span class="fs-popup-close">&times;</span>
+                        <div class="fs-orientation">
+                            <b>Floating scrollbar orientation:</b>
+                            <label><input type="radio" name="orientation" value="horizontal" checked>Horizontal</label>
+                            <label><input type="radio" name="orientation" value="vertical">Vertical</label>
+                        </div>
+                    </div>
                     <h4>Try to unthread the labyrinth!</h4>
-                    <div id="fs-maze" class="fs-demo fs-maze">
+                    <div id="fs-maze" class="fs-demo fs-maze" data-fs-orientation="horizontal">
                         <img src="https://amphiluke.github.io/jquery-plugins/floatingscroll/maze.png" alt="labyrinth" width="1840" height="1086">
                     </div>
-                    <p>How are you getting on? :)</p>
-                </div>
+                    <p>How is your progress? :)</p>
+                </form>
             </div>
 
             <h3>Demo code (key parts)</h3>
@@ -1062,28 +1074,31 @@ $("#fs-listing-toggle").on("click", function () {
     height:550px; /* same as for parent (the latter should not be scrollable) */
     width:100%;
 }
-.fs-popup .fl-scrolls:not(.fl-scrolls-hidden) {
-    bottom:10px; /* same value as the parent's bottom padding */
-    left:10px; /* same value as the parent's left padding */
+.fs-popup .fl-scrolls[data-orientation="horizontal"]:not(.fl-scrolls-hidden) {
+    bottom:10px; /* same value as the parent’s bottom padding */
+    left:10px; /* same value as the parent’s left padding */
 }
             </code></pre>
             <h4>JavaScript:</h4>
             <pre class="fs-code"><code class="javascript">
+var orientation = "horizontal"; // or "vertical"
+$("#fs-maze").floatingScroll("init", {orientation: orientation});
+
 $("#fs-open-popup").on("click", function (e) {
     // Show the popup
     $(".fs-popup").toggleClass("fs-popup-hidden");
     // ...
-    // You may need to force scroll bar update when the popup becomes visible
+    // You may need to force scrollbar update when the popup becomes visible
     $("#fs-maze").floatingScroll("update");
 });
             </code></pre>
         </section>
 
         <section id="demo-unobtrusive">
-            <h2>#4 “Unobtrusive” floating scroll bar</h2>
+            <h2>#4 “Unobtrusive” floating scrollbar</h2>
 
             <h3>Description</h3>
-            <p>This feature makes a floating scroll bar appear only when the mouse pointer hovers over the scrollable container. Refer the <a href="https://github.com/Amphiluke/floating-scroll#tips">plugin's docs</a> for more details.</p>
+            <p>This feature makes a floating scrollbar appear only when the mouse pointer hovers over the scrollable container. Refer the <a href="https://github.com/Amphiluke/floating-scroll#tips">plugin’s docs</a> for more details.</p>
 
             <h3>Live demo</h3>
             <form action="#" autocomplete="off">
@@ -1098,8 +1113,8 @@ $("#fs-open-popup").on("click", function (e) {
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
-    <script src="js/jquery.floatingscroll.min.js?v3.0.7"></script>
+    <script src="js/jquery.floatingscroll.min.js?v3.1.0"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="js/main.js?v3.0.7"></script>
+    <script src="js/main.js?v3.1.0"></script>
 </body>
 </html>

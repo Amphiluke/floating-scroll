@@ -1,0 +1,34 @@
+.fs-whatwg-cols {
+    margin-bottom:1em;
+    fieldset {
+        border:none;
+        display:inline-block;
+        margin:0;
+        padding:0;
+        vertical-align:top;
+        width:49.5%;
+    }
+    label {
+        display:block;
+    }
+}
+.fs-whatwg {
+    max-width:100%;
+    overflow:auto;
+    th, td {
+        text-align:center;
+    }
+    tbody th:first-child,
+    tbody td:first-child {
+        text-align:left;
+    }
+}
+
+@media (max-width:499px) {
+    .fs-whatwg-cols {
+        fieldset {
+            display:block;
+            width:auto;
+        }
+    }
+}

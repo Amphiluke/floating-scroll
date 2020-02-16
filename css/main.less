@@ -31,25 +31,6 @@ th, td {
     display:none;
 }
 
-.fs-code {
-    background:fade(#fff, 50%);
-    border-radius:5px;
-    max-width:100%;
-    overflow:auto;
-    padding:5px 20px;
-    tab-size:4;
-    code {
-        background:none;
-        display:block;
-        overflow:visible;
-        padding:0;
-    }
-    .fs-highlight {
-        background:fade(#eea, 80%);
-    }
-}
-
-
 header {
     text-align:center;
     h1 {
@@ -115,99 +96,6 @@ main {
     padding:10px 20px;
 }
 
-.fs-whatwg-cols {
-    margin-bottom:1em;
-    fieldset {
-        border:none;
-        display:inline-block;
-        margin:0;
-        padding:0;
-        vertical-align:top;
-        width:49.5%;
-    }
-    label {
-        display:block;
-    }
-}
-.fs-whatwg {
-    max-width:100%;
-    overflow:auto;
-    th, td {
-        text-align:center;
-    }
-    tbody th:first-child,
-    tbody td:first-child {
-        text-align:left;
-    }
-}
-
-.fs-popup {
-    background:#fff;
-    box-shadow:0 0 0 100vw fade(#000, 75%);
-    height:550px;
-    left:50%;
-    margin-left:-700px / 2;
-    padding:10px;
-    position:fixed;
-    text-align:center;
-    top:20px;
-    width:700px;
-    z-index:1;
-
-    &.fs-popup-hidden {
-        box-shadow:none;
-        left:-99999px;
-        top:-99999px;
-    }
-
-    &-close {
-        color:#c00;
-        cursor:pointer;
-        font-size:13px;
-        left:10px;
-        position:absolute;
-        top:10px;
-    }
-
-    h4 {
-        font-size:1.5em;
-        margin:0.5em 0;
-    }
-
-    .fl-scrolls-body {
-        height:550px;
-        width:100%;
-    }
-
-    .fl-scrolls:not(.fl-scrolls-hidden) {
-        bottom:10px; // same value as the bottom padding
-        left:10px; // same value as the left padding
-    }
-}
-
-.fs-maze {
-    font-size:0;
-    line-height:0;
-    overflow:auto;
-    width:100%;
-
-    img {
-        vertical-align:top;
-    }
-}
-
-#fs-open-popup {
-    color:#1e70ff;
-    cursor:pointer;
-    &:hover {
-        color:darken(#1e70ff, 10%);
-    }
-}
-
-.fs-listing-collapsed {
-    max-height:400px;
-}
-
 footer {
     color:darken(#fff, 30%);
     font-size:0.85em;
@@ -222,23 +110,6 @@ footer {
     }
 }
 
-
-@media (max-width:719px), (max-height:569px) {
-    .fs-popup {
-        box-shadow:none;
-        box-sizing:border-box;
-        height:100%;
-        left:0;
-        margin:0;
-        top:0;
-        width:100%;
-    }
-
-    .fl-scrolls-body {
-        max-height:100%;
-    }
-}
-
 @media (max-width:499px) {
     main {
         box-shadow:0 0 4px 5px fade(#fff, 30%);
@@ -246,11 +117,13 @@ footer {
         margin:60px 10px 10px;
         padding:5px 10px;
     }
+}
 
-    .fs-whatwg-cols {
-        fieldset {
-            display:block;
-            width:auto;
-        }
-    }
+
+@import "code";
+@import "whatwg";
+@import "popup";
+
+.fs-listing-collapsed {
+    max-height:400px;
 }
