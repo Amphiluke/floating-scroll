@@ -1,8 +1,32 @@
 import $ from "jquery";
 
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
+
+let getOrientationProps = orientation => {
+    let horizontal = orientation === HORIZONTAL;
+    // Properties with “X” are for cross orientation (relative to the scrollbar orientation)
+    return {
+        ORIENTATION: orientation,
+        SIZE: horizontal ? "width" : "height",
+        X_SIZE: horizontal ? "height" : "width",
+        OFFSET_SIZE: horizontal ? "offsetWidth" : "offsetHeight",
+        OFFSET_X_SIZE: horizontal ? "offsetHeight" : "offsetWidth",
+        CLIENT_SIZE: horizontal ? "clientWidth" : "clientHeight",
+        CLIENT_X_SIZE: horizontal ? "clientHeight" : "clientWidth",
+        INNER_X_SIZE: horizontal ? "innerHeight" : "innerWidth",
+        SCROLL_SIZE: horizontal ? "scrollWidth" : "scrollHeight",
+        SCROLL_POS: horizontal ? "scrollLeft" : "scrollTop",
+        START: horizontal ? "left" : "top",
+        X_START: horizontal ? "top" : "left",
+        X_END: horizontal ? "bottom" : "right"
+    };
+};
+
 let floatingScrollProto = {
-    init(container) {
+    init(container, orientation) {
         let instance = this;
+        instance.orientationProps = getOrientationProps(orientation);
         let scrollBody = container.closest(".fl-scrolls-body");
         if (scrollBody.length) {
             instance.scrollBody = scrollBody;
@@ -18,8 +42,9 @@ let floatingScrollProto = {
 
     initWidget() {
         let instance = this;
-        let widget = instance.widget = $("<div class='fl-scrolls'></div>");
-        $("<div></div>").appendTo(widget).css({width: `${instance.container.scrollWidth}px`});
+        const {ORIENTATION, SIZE, SCROLL_SIZE} = instance.orientationProps;
+        let widget = instance.widget = $(`<div class="fl-scrolls" data-orientation="${ORIENTATION}"></div>`);
+        $("<div></div>").appendTo(widget)[SIZE](instance.container[SCROLL_SIZE]);
         widget.appendTo(instance.container);
     },
 
@@ -29,10 +54,10 @@ let floatingScrollProto = {
             {
                 $el: instance.scrollBody || $(window),
                 handlers: {
-                    // Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
+                    // Don’t use `$.proxy()` since it makes impossible event unbinding individually per instance
                     // (see the warning at http://api.jquery.com/unbind/)
                     scroll() {
-                        instance.checkVisibility();
+                        instance.updateAPI();
                     },
                     resize() {
                         instance.updateAPI();
@@ -86,56 +111,61 @@ let floatingScrollProto = {
     checkVisibility() {
         let instance = this;
         let {widget, container, scrollBody} = instance;
-        let mustHide = (widget[0].scrollWidth <= widget[0].offsetWidth);
+        const {SCROLL_SIZE, OFFSET_SIZE, X_START, X_END, INNER_X_SIZE, CLIENT_X_SIZE} = instance.orientationProps;
+        let mustHide = (widget[0][SCROLL_SIZE] <= widget[0][OFFSET_SIZE]);
         if (!mustHide) {
             let containerRect = container.getBoundingClientRect();
-            let maxVisibleY = scrollBody ?
-                scrollBody[0].getBoundingClientRect().bottom :
-                window.innerHeight || document.documentElement.clientHeight;
-            mustHide = ((containerRect.bottom <= maxVisibleY) || (containerRect.top > maxVisibleY));
+            let maxVisibleCrossEnd = scrollBody ?
+                scrollBody[0].getBoundingClientRect()[X_END] :
+                window[INNER_X_SIZE] || document.documentElement[CLIENT_X_SIZE];
+            mustHide = ((containerRect[X_END] <= maxVisibleCrossEnd) || (containerRect[X_START] > maxVisibleCrossEnd));
         }
         if (instance.visible === mustHide) {
             instance.visible = !mustHide;
-            // We cannot simply hide the scrollbar since its scrollLeft property will not update in that case
+            // We cannot simply hide the scrollbar since its scroll position won’t update in that case
             widget.toggleClass("fl-scrolls-hidden");
         }
     },
 
     syncContainer() {
         let instance = this;
-        let {scrollLeft} = instance.widget[0];
-        if (instance.container.scrollLeft !== scrollLeft) {
+        const {SCROLL_POS} = instance.orientationProps;
+        let scrollPos = instance.widget[0][SCROLL_POS];
+        if (instance.container[SCROLL_POS] !== scrollPos) {
             // Prevents container’s “scroll” event handler from syncing back again widget scroll position
             instance.skipSyncWidget = true;
             // Note that this makes container’s “scroll” event handlers execute
-            instance.container.scrollLeft = scrollLeft;
+            instance.container[SCROLL_POS] = scrollPos;
         }
     },
 
     syncWidget() {
         let instance = this;
-        let {scrollLeft} = instance.container;
-        if (instance.widget[0].scrollLeft !== scrollLeft) {
+        const {SCROLL_POS} = instance.orientationProps;
+        let scrollPos = instance.container[SCROLL_POS];
+        if (instance.widget[0][SCROLL_POS] !== scrollPos) {
             // Prevents widget’s “scroll” event handler from syncing back again container scroll position
             instance.skipSyncContainer = true;
             // Note that this makes widget’s “scroll” event handlers execute
-            instance.widget[0].scrollLeft = scrollLeft;
+            instance.widget[0][SCROLL_POS] = scrollPos;
         }
     },
 
-    // Recalculate scroll width and container boundaries
+    // Recalculate scroll width/height and container boundaries
     updateAPI() {
         let instance = this;
+        const {SIZE, X_SIZE, OFFSET_X_SIZE, CLIENT_SIZE, CLIENT_X_SIZE, SCROLL_SIZE, START} = instance.orientationProps;
         let {widget, container, scrollBody} = instance;
-        let {clientWidth, scrollWidth} = container;
-        widget.width(clientWidth);
+        let clientSize = container[CLIENT_SIZE];
+        let scrollSize = container[SCROLL_SIZE];
+        widget[SIZE](clientSize);
         if (!scrollBody) {
-            widget.css("left", `${container.getBoundingClientRect().left}px`);
+            widget.css(START, `${container.getBoundingClientRect()[START]}px`);
         }
-        $("div", widget).width(scrollWidth);
-        // Fit widget height to the native scroll bar height if needed
-        if (scrollWidth > clientWidth) {
-            widget.height(widget[0].offsetHeight - widget[0].clientHeight + 1); // +1px JIC
+        $("div", widget)[SIZE](scrollSize);
+        // Fit widget size to the native scrollbar size if needed
+        if (scrollSize > clientSize) {
+            widget[X_SIZE](widget[0][OFFSET_X_SIZE] - widget[0][CLIENT_X_SIZE] + 1); // +1px JIC
         }
         instance.syncWidget();
         instance.checkVisibility(); // fixes issue #2
@@ -150,9 +180,13 @@ let floatingScrollProto = {
     }
 };
 
-$.fn.floatingScroll = function (method = "init") {
+$.fn.floatingScroll = function (method = "init", options = {}) {
     if (method === "init") {
-        this.each((index, el) => Object.create(floatingScrollProto).init($(el)));
+        let {orientation = HORIZONTAL} = options;
+        if (orientation !== HORIZONTAL && orientation !== VERTICAL) {
+            throw new Error(`Scrollbar orientation should be either “${HORIZONTAL}” or “${VERTICAL}”`);
+        }
+        this.each((index, el) => Object.create(floatingScrollProto).init($(el), orientation));
     } else if (Object.prototype.hasOwnProperty.call(floatingScrollProto, `${method}API`)) {
         this.trigger(`${method}.fscroll`);
     }
@@ -160,5 +194,8 @@ $.fn.floatingScroll = function (method = "init") {
 };
 
 $(document).ready(() => {
-    $("body [data-fl-scrolls]").floatingScroll();
+    $("body [data-fl-scrolls]").each((index, el) => {
+        let $el = $(el);
+        $el.floatingScroll($el.data("flScrolls") || {});
+    });
 });

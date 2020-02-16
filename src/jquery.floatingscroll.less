@@ -1,11 +1,8 @@
 .fl-scrolls {
-    bottom:0;
-    min-height:17px; // based on https://codepen.io/sambible/post/browser-scrollbar-widths (fixes Amphiluke/handy-scroll#3)
     overflow:auto;
     position:fixed;
 
     div {
-        height:1px;
         overflow:hidden;
         pointer-events:none;
         &:before {
@@ -21,11 +18,8 @@
         padding:0;
     }
 
-    &-hidden {
-        bottom:9999px;
-        div:before {
-            content:"\A0\A0"; // changing content fixes eventual bug with widget re-rendering in Chrome
-        }
+    &-hidden div:before {
+        content:"\A0\A0"; // changing content fixes eventual bug with widget re-rendering in Chrome
     }
 
     &-viewport {
@@ -36,7 +30,6 @@
         overflow:auto;
     }
     &-viewport & {
-        left:0;
         position:absolute;
     }
 
@@ -46,5 +39,43 @@
     }
     &-hoverable:hover & {
         opacity:1;
+    }
+}
+
+
+// Orientation-specific styles
+
+.fl-scrolls[data-orientation="horizontal"],
+.fl-scrolls:not([data-orientation]) { // handling cases with no data attribute for backward compatibility
+    bottom:0;
+    min-height:17px; // based on https://codepen.io/sambible/post/browser-scrollbar-widths (fixes Amphiluke/handy-scroll#3)
+
+    div {
+        height:1px;
+    }
+
+    .fl-scrolls-hidden& {
+        bottom:9999px;
+    }
+
+    .fl-scrolls-viewport & {
+        left:0;
+    }
+}
+
+.fl-scrolls[data-orientation="vertical"] {
+    right:0;
+    min-width:17px;
+
+    div {
+        width:1px;
+    }
+
+    .fl-scrolls-hidden& {
+        right:9999px;
+    }
+
+    .fl-scrolls-viewport & {
+        top:0;
     }
 }
