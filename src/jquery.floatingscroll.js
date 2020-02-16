@@ -196,6 +196,6 @@ $.fn.floatingScroll = function (method = "init", options = {}) {
 $(document).ready(() => {
     $("body [data-fl-scrolls]").each((index, el) => {
         let $el = $(el);
-        $el.floatingScroll($el.data("flScrolls") || {});
+        $el.floatingScroll("init", $el.data("flScrolls") || {});
     });
 });
