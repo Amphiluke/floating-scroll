@@ -20,8 +20,8 @@
   "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
   "devDependencies": {
     "clean-css-cli": "^4.3.0",
-    "copyfiles": "^2.2.0",
-    "less": "^3.11.1"
+    "copyfiles": "^2.3.0",
+    "less": "^3.12.2"
   },
   "dependencies": {
     "floating-scroll": "^3.1.0"
