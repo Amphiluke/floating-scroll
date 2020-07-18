@@ -28,15 +28,15 @@
   },
   "homepage": "https://amphiluke.github.io/floating-scroll/",
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "clean-css-cli": "^4.3.0",
-    "eslint": "^6.8.0",
-    "husky": "^4.2.3",
-    "less": "^3.11.1",
-    "rollup": "^2.1.0",
+    "eslint": "^7.4.0",
+    "husky": "^4.2.5",
+    "less": "^3.12.2",
+    "rollup": "^2.22.0",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-terser": "^5.3.0"
+    "rollup-plugin-terser": "^6.1.0"
   },
   "peerDependencies": {
     "jquery": ">=1.4.3"
