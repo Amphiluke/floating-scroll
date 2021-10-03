@@ -89,7 +89,12 @@ let floatingScrollProto = {
                         instance.skipSyncWidget = false;
                     },
                     focusin() {
-                        setTimeout(() => instance.syncWidget(), 0);
+                        setTimeout(() => {
+                            // The widget might be destroyed before the timer is triggered (Amphiluke/handy-scroll#14)
+                            if (instance.widget) {
+                                instance.syncWidget();
+                            }
+                        }, 0);
                     },
                     "update.fscroll"({namespace}) {
                         // Check event namespace to ensure that this is not an extraneous event in a bubbling phase
@@ -193,7 +198,7 @@ $.fn.floatingScroll = function (method = "init", options = {}) {
     return this;
 };
 
-$(document).ready(() => {
+$(() => {
     $("body [data-fl-scrolls]").each((index, el) => {
         let $el = $(el);
         $el.floatingScroll("init", $el.data("flScrolls") || {});
