@@ -1,1 +1,1 @@
-[Live demos](http://amphiluke.github.io/floating-scroll/) for the `floatingScroll` plugin.
+[Live demos](https://amphiluke.github.io/floating-scroll/) for the `floatingScroll` plugin.

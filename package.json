@@ -5,7 +5,7 @@
   "main": "js/main.js",
   "scripts": {
     "copyDependencies": "copyfiles -f node_modules/floating-scroll/dist/jquery.floatingscroll.min.js js",
-    "build": "lessc css/main.less | cleancss --skip-rebase -O2 -o css/main.css",
+    "build": "lessc css/main.less | cleancss -c ie9 -O2 -o css/main.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/Amphiluke/floating-scroll#readme",
   "devDependencies": {
-    "clean-css-cli": "^4.3.0",
-    "copyfiles": "^2.3.0",
-    "less": "^3.12.2"
+    "clean-css-cli": "^5.4.1",
+    "copyfiles": "^2.4.1",
+    "less": "^4.1.1"
   },
   "dependencies": {
-    "floating-scroll": "^3.1.0"
+    "floating-scroll": "^3.2.0"
   }
 }

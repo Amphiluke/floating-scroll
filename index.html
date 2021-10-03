@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>floatingScroll</title>
-    <link rel="icon" type="image/png" href="favicon.png"/>
-    <link rel="stylesheet" href="css/main.css?v3.1.0"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/main.css?v3.2.0">
     <meta name="description" content="Lightweight jQuery plugin providing floating scrollbar functionality">
     <meta property="og:url" content="https://amphiluke.github.io/floating-scroll">
     <meta property="og:type" content="website">
@@ -37,23 +36,23 @@
             <h3>Live demo</h3>
             <form action="#" class="fs-whatwg-cols" autocomplete="off">
                 <fieldset>
-                    <label><input type="checkbox" checked/> Hidden</label>
-                    <label><input type="checkbox" checked/> Text, Search</label>
-                    <label><input type="checkbox" checked/> URL, Telephone</label>
-                    <label><input type="checkbox" checked/> E-mail</label>
-                    <label><input type="checkbox" checked/> Password</label>
-                    <label><input type="checkbox" checked/> Date and Time, Date, Month, Week, Time</label>
-                    <label><input type="checkbox" checked/> Local Date and Time</label>
+                    <label><input type="checkbox" checked> Hidden</label>
+                    <label><input type="checkbox" checked> Text, Search</label>
+                    <label><input type="checkbox" checked> URL, Telephone</label>
+                    <label><input type="checkbox" checked> E-mail</label>
+                    <label><input type="checkbox" checked> Password</label>
+                    <label><input type="checkbox" checked> Date and Time, Date, Month, Week, Time</label>
+                    <label><input type="checkbox" checked> Local Date and Time</label>
                 </fieldset>
                 <fieldset>
-                    <label><input type="checkbox" checked/> Number</label>
-                    <label><input type="checkbox" checked/> Range</label>
-                    <label><input type="checkbox" checked/> Color</label>
-                    <label><input type="checkbox" checked/> Checkbox, Radio Button</label>
-                    <label><input type="checkbox" checked/> File Upload</label>
-                    <label><input type="checkbox" checked/> Submit Button</label>
-                    <label><input type="checkbox" checked/> Image Button</label>
-                    <label><input type="checkbox" checked/> Reset Button, Button</label>
+                    <label><input type="checkbox" checked> Number</label>
+                    <label><input type="checkbox" checked> Range</label>
+                    <label><input type="checkbox" checked> Color</label>
+                    <label><input type="checkbox" checked> Checkbox, Radio Button</label>
+                    <label><input type="checkbox" checked> File Upload</label>
+                    <label><input type="checkbox" checked> Submit Button</label>
+                    <label><input type="checkbox" checked> Image Button</label>
+                    <label><input type="checkbox" checked> Reset Button, Button</label>
                 </fieldset>
             </form>
             <div id="fs-whatwg" class="fs-demo fs-whatwg">
@@ -817,9 +816,9 @@
             </div>
 
             <h3>Demo code</h3>
-            <pre class="fs-code"><code class="javascript">
-<span class="fs-highlight">// Plugin initialization
-$(".fs-whatwg").floatingScroll();</span>
+            <pre class="fs-code"><code class="language-javascript">
+// ⓘ Plugin initialization      &nbsp;
+$(".fs-whatwg").floatingScroll();
 
 // Handle checkbox state changes and update floating scrollbar
 $(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
@@ -836,8 +835,8 @@ $(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
         $checkboxes.prop("checked", true);
         $("#fs-whatwg").find("th.hidden, td.hidden").removeClass("hidden");
     }
-    <span class="fs-highlight">// Force scrollbar update programmatically</span>
-    <span class="fs-highlight">$(".fs-whatwg").floatingScroll("update");</span>
+    // ⓘ Force scrollbar update programmatically
+    $(".fs-whatwg").floatingScroll("update");
 });
             </code></pre>
         </section>
@@ -850,7 +849,7 @@ $(".fs-whatwg-cols").on("change", "input[type='checkbox']", function (e) {
 
             <h3>Live demo</h3>
             <p><button id="fs-listing-toggle">Expand/Collapse the listing</button> <small>and turn on/off floating scrollbar</small></p>
-            <pre id="fs-listing" class="fs-demo fs-code fs-listing"><code class="javascript">
+            <pre id="fs-listing" class="fs-demo fs-code fs-listing"><code class="language-javascript">
 import $ from "jquery";
 
 class FScroll {
@@ -997,9 +996,9 @@ $(document).ready(() =&gt; {
                 </code></pre>
 
             <h3>Demo code</h3>
-            <pre class="fs-code"><code class="javascript">
-<span class="fs-highlight">// Plugin initialization
-$(".fs-listing").floatingScroll();</span>
+            <pre class="fs-code"><code class="language-javascript">
+// ⓘ Plugin initialization       &nbsp;
+$(".fs-listing").floatingScroll();
 
 // Destroy or re-create floating scrollbar clicking the button
 $("#fs-listing-toggle").on("click", function () {
@@ -1007,11 +1006,13 @@ $("#fs-listing-toggle").on("click", function () {
     if ($scrollOwner.hasClass("fs-listing-collapsed")) {
         $scrollOwner
             .removeClass("fs-listing-collapsed")
-            <span class="fs-highlight">.floatingScroll("init");</span>
+            // ⓘ Reinitialize      &nbsp;
+            .floatingScroll("init");
     } else {
         $scrollOwner
             .addClass("fs-listing-collapsed")
-            <span class="fs-highlight">.floatingScroll("destroy");</span>
+            // ⓘ Destroy and cleanup  &nbsp;
+            .floatingScroll("destroy");
     }
 });
             </code></pre>
@@ -1050,7 +1051,7 @@ $("#fs-listing-toggle").on("click", function () {
 
             <h3>Demo code (key parts)</h3>
             <h4>HTML:</h4>
-            <pre class="fs-code"><code class="html">
+            <pre class="fs-code"><code class="language-html">
 &lt;!-- Apply the "fl-scrolls-viewport" class to the popup block --&gt;
 &lt;div class="fs-popup fs-popup-hidden fl-scrolls-viewport"&gt;
     &lt;!-- Apply the "fl-scrolls-body" class to the popup contents block --&gt;
@@ -1063,7 +1064,7 @@ $("#fs-listing-toggle").on("click", function () {
 &lt;/div&gt;
             </code></pre>
             <h4>CSS:</h4>
-            <pre class="fs-code"><code class="css">
+            <pre class="fs-code"><code class="language-css">
 .fs-popup {
     height:550px;
     padding:10px;
@@ -1080,7 +1081,7 @@ $("#fs-listing-toggle").on("click", function () {
 }
             </code></pre>
             <h4>JavaScript:</h4>
-            <pre class="fs-code"><code class="javascript">
+            <pre class="fs-code"><code class="language-javascript">
 var orientation = "horizontal"; // or "vertical"
 $("#fs-maze").floatingScroll("init", {orientation: orientation});
 
@@ -1112,9 +1113,9 @@ $("#fs-open-popup").on("click", function (e) {
         <a href="https://github.com/Amphiluke/floating-scroll" target="_blank">floatingScroll on GitHub</a>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
-    <script src="js/jquery.floatingscroll.min.js?v3.1.0"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="js/main.js?v3.1.0"></script>
+    <script src="js/jquery-3.6.0.slim.min.js"></script>
+    <script src="js/jquery.floatingscroll.min.js?v3.2.0"></script>
+    <script src="js/highlight-11.0.1.min.js"></script>
+    <script src="js/main.js?v3.2.0"></script>
 </body>
 </html>

@@ -69,7 +69,12 @@ $("#is-unobtrusive").on("change", function (e) {
 });
 
 if (global.hljs) {
-    global.hljs.initHighlightingOnLoad();
+    global.hljs.addPlugin({
+        "after:highlightElement": function (data) {
+            $(data.el).find(".hljs-comment:contains('ⓘ')").addClass("comment-hlight-next-line");
+        }
+    })
+    global.hljs.highlightAll();
 }
 
 })(this);
