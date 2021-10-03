@@ -52,6 +52,16 @@ let floatingScrollProto = {
         let instance = this;
         let eventHandlers = instance.eventHandlers = [
             {
+                $el: $(window),
+                handlers: {
+                    "destroyDetached.fscroll"({namespace}) {
+                        if (namespace === "fscroll") {
+                            instance.destroyDetachedAPI();
+                        }
+                    }
+                }
+            },
+            {
                 $el: instance.scrollBody || $(window),
                 handlers: {
                     // Don’t use `$.proxy()` since it makes impossible event unbinding individually per instance
@@ -182,6 +192,12 @@ let floatingScrollProto = {
         instance.eventHandlers.forEach(({$el, handlers}) => $el.unbind(handlers));
         instance.widget.remove();
         instance.eventHandlers = instance.widget = instance.container = instance.scrollBody = null;
+    },
+
+    destroyDetachedAPI() {
+        if (!$.contains(document.body, this.container)) {
+            this.destroyAPI();
+        }
     }
 };
 

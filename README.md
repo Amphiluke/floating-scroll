@@ -12,11 +12,12 @@ The general purpose of the plugin is to provide some lengthy containers on the p
 
 ## Details & API
 
-There is the only public method used to instantiate and control a floating scrollbar — `.floatingScroll()`. The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
+There is the only public method used to instantiate and control a floating scrollbar — `.floatingScroll()`. Unless otherwise indicated, the plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
 
 * [`init`](#initialisation) (default value) — used to initialize a floating scrollbar widget;
 * [`update`](#updating-scrollbar) — used t force update of the floating scrollbar parameters (size and position);
-* [`destroy`](#destroying-floating-scrollbar) — removes a scrollbar and all related event handlers.
+* [`destroy`](#destroying-floating-scrollbar) — removes a scrollbar and all related event handlers;
+* [`destroyDetached`](#destroying-detached-widgets) — destroys floating scrollbar instances whose containers were removed from the document (requires a different context, see below).
 
 You may also [trigger](https://api.jquery.com/trigger/) events `update.fscroll` and `destroy.fscroll` on containers with attached floating scrollbar: this does the same as invoking the corresponding methods.
 
@@ -80,6 +81,18 @@ To detach a scrollbar and remove all related event handlers, use the method `des
 
 ```javascript
 $(".spacious-container").floatingScroll("destroy");
+```
+
+### Destroying detached widgets
+
+If your app completely re-renders a large portion of DOM where floating scrollbar widgets were mounted, actual container references are lost, and therefore you cannot destroy the widgets and perform related cleanup using the `destroy` method. In this case, you may just call the `destroyDetached` method, and the pluign will find all “zombie” instances and will destroy them for you. Unlike the other methods, this one needs to be called in context of `$(window)`:
+
+```javascript
+$(".main-view .spacious-container").floatingScroll("init");
+// ... the app re-renders the main view ...
+$(".main-view").html("...");
+// destroy floating scrollbar widgets whose containers are not in the document anymore
+$(window).floatingScroll("destroyDetached");
 ```
 
 ### Special cases
