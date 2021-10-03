@@ -40,13 +40,26 @@ $("#fs-open-popup").on("click", function (e) {
     if ($popup.hasClass("fs-popup-hidden")) {
         return;
     }
-    $("#fs-maze").floatingScroll("update");
+    var update = function () {
+        $("#fs-maze").floatingScroll("update");
+    };
+    update();
     e.stopPropagation();
+    // See css/popup.less
+    var mql = window.matchMedia && window.matchMedia("(max-width:719px), (max-height:569px)");
+    if (mql && mql.addEventListener) {
+        mql.addEventListener("change", update);
+    } else {
+        mql = null;
+    }
     $(document).on("click", function popupOutClick(e) {
         var $target = $(e.target);
         if ($target.is(".fs-popup-close") || !$target.closest($popup).length) {
             $popup.addClass("fs-popup-hidden");
             $("body").off("click", popupOutClick);
+            if (mql) {
+                mql.removeEventListener("change", update);
+            }
         }
     });
 });
