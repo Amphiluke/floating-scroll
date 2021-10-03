@@ -1,10 +1,14 @@
 {
   "name": "floating-scroll",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "A lightweight jQuery plugin providing floating scrollbar functionality",
   "main": "dist/jquery.floatingscroll.min.js",
   "module": "src/jquery.floatingscroll.js",
   "style": "dist/jquery.floatingscroll.css",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint src/jquery.floatingscroll.js",

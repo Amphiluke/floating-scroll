@@ -33,7 +33,7 @@ The plugin requires the CSS file [jquery.floatingscroll.css](dist/jquery.floatin
 The only thing required to apply floatingScroll to a static container (whose sizes will never change during the session) is a single call of the `.floatingScroll()` method on the DOM ready event:
 
 ```javascript
-$(document).ready(function () {
+$(() => {
     $(".spacious-container").floatingScroll();
 });
 ```
@@ -41,7 +41,7 @@ $(document).ready(function () {
 Starting with v3.1.0, the method `init` supports passing options. Currently, the only supported parameter is `orientation`. Default scrollbar orientation is `"horizontal"` but you can also make a vertical floating scrollbar using options:
 
 ```javascript
-$(document).ready(function () {
+$(() => {
     $(".spacious-container").floatingScroll("init", {
         orientation: "vertical"
     });
@@ -68,7 +68,7 @@ If you attach a floating scrollbar to a container whose size and/or content may 
 
 ```javascript
 $(".spacious-container").floatingScroll("init");
-$("#refresh-button").click(function () {
+$("#refresh-button").click(() => {
     // ... some actions which change the total scroll width of the container ...
     $(".spacious-container").floatingScroll("update");
 });
