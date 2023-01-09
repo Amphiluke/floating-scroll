@@ -1,6 +1,6 @@
-import pkg from "./package.json";
-import babel from "rollup-plugin-babel";
-import {terser} from "rollup-plugin-terser";
+import pkg from "./package.json" assert {type: "json"};
+import babel from "@rollup/plugin-babel";
+import terser from "@rollup/plugin-terser";
 
 let config = {
     input: "src/jquery.floatingscroll.js",
@@ -9,7 +9,6 @@ let config = {
         globals: {
             jquery: "jQuery"
         },
-        interop: false,
         banner: `/*!
 ${pkg.name} v${pkg.version}
 ${pkg.homepage}
@@ -33,5 +32,5 @@ export default [{
     input: config.input,
     output: Object.assign({file: "dist/jquery.floatingscroll.min.js"}, config.output),
     external: config.external,
-    plugins: [babel()].concat(config.plugins)
+    plugins: [babel(), ...config.plugins]
 }];
