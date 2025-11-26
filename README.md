@@ -1,5 +1,8 @@
 # floating-scroll
 
+> [!WARNING]
+> This jQuery plugin has been deprecated. Consider migrating to the [handy-scroll](https://github.com/Amphiluke/handy-scroll) web component, a modern alternative to floating-scroll.
+
 ## The Crux of the Matter
 
 The general purpose of the plugin is to provide some lengthy containers on the page with a separate horizontal (or vertical) scrollbar, which does not vanish from sight when the entire page is scrolled. So, the user will always be able to scroll the container even if its own scrollbar is outside the viewport.
